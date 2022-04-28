@@ -1,0 +1,20 @@
+project:
+  type: website
+
+website:
+  title: "Cheatsheets"
+  navbar:
+    background: primary
+    left:
+      - href: index.qmd
+        text: Home
+      - linear-algebra.qmd
+
+format:
+  html:
+    theme: cosmo
+    css: styles.css
+    toc: true
+
+
+

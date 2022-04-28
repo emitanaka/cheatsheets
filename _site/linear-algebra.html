@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-0.9.312">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Cheatsheets - Linear Algebra</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link id="quarto-text-highlighting-styles" href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Cheatsheets</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll me-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html">Home</a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link active" href="./linear-algebra.html" aria-current="page">Linear Algebra</a>
+  </li>  
+</ul>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#notations" id="toc-notations" class="nav-link active" data-scroll-target="#notations">Notations</a>
+  <ul class="collapse">
+  <li><a href="#operators" id="toc-operators" class="nav-link" data-scroll-target="#operators">Operators</a></li>
+  </ul></li>
+  <li><a href="#elements-of-vectors" id="toc-elements-of-vectors" class="nav-link" data-scroll-target="#elements-of-vectors">Elements of vectors</a></li>
+  <li><a href="#elements-of-matrices" id="toc-elements-of-matrices" class="nav-link" data-scroll-target="#elements-of-matrices">Elements of matrices</a>
+  <ul class="collapse">
+  <li><a href="#dimensionorder-of-a-matrix" id="toc-dimensionorder-of-a-matrix" class="nav-link" data-scroll-target="#dimensionorder-of-a-matrix">Dimension/Order of a matrix</a></li>
+  <li><a href="#diagonal-and-off-diagonal-elements" id="toc-diagonal-and-off-diagonal-elements" class="nav-link" data-scroll-target="#diagonal-and-off-diagonal-elements">Diagonal and off-diagonal elements</a></li>
+  <li><a href="#the-laws-of-algebra" id="toc-the-laws-of-algebra" class="nav-link" data-scroll-target="#the-laws-of-algebra">The laws of algebra</a></li>
+  </ul></li>
+  <li><a href="#rangespancolumn-space" id="toc-rangespancolumn-space" class="nav-link" data-scroll-target="#rangespancolumn-space">Range/Span/Column Space</a></li>
+  <li><a href="#kernelnull-space" id="toc-kernelnull-space" class="nav-link" data-scroll-target="#kernelnull-space">Kernel/Null space</a></li>
+  <li><a href="#orthogonal-complement" id="toc-orthogonal-complement" class="nav-link" data-scroll-target="#orthogonal-complement">Orthogonal complement</a></li>
+  <li><a href="#rank" id="toc-rank" class="nav-link" data-scroll-target="#rank">Rank</a></li>
+  <li><a href="#projection-matrix" id="toc-projection-matrix" class="nav-link" data-scroll-target="#projection-matrix">Projection matrix</a>
+  <ul class="collapse">
+  <li><a href="#projection-onto-the-range-of-a-matrix" id="toc-projection-onto-the-range-of-a-matrix" class="nav-link" data-scroll-target="#projection-onto-the-range-of-a-matrix">Projection onto the range of a matrix</a></li>
+  </ul></li>
+  <li><a href="#idempotent-matrix" id="toc-idempotent-matrix" class="nav-link" data-scroll-target="#idempotent-matrix">Idempotent matrix</a></li>
+  <li><a href="#nilpotent-and-unipotent-matrices" id="toc-nilpotent-and-unipotent-matrices" class="nav-link" data-scroll-target="#nilpotent-and-unipotent-matrices">Nilpotent and Unipotent matrices</a></li>
+  <li><a href="#permutation-matrix" id="toc-permutation-matrix" class="nav-link" data-scroll-target="#permutation-matrix">Permutation matrix</a></li>
+  <li><a href="#rotation-matrix" id="toc-rotation-matrix" class="nav-link" data-scroll-target="#rotation-matrix">Rotation matrix</a></li>
+  <li><a href="#traces" id="toc-traces" class="nav-link" data-scroll-target="#traces">Traces</a></li>
+  <li><a href="#vectormatrix-operations" id="toc-vectormatrix-operations" class="nav-link" data-scroll-target="#vectormatrix-operations">Vector/Matrix operations</a></li>
+  <li><a href="#transpose" id="toc-transpose" class="nav-link" data-scroll-target="#transpose">Transpose</a></li>
+  <li><a href="#inverses" id="toc-inverses" class="nav-link" data-scroll-target="#inverses">Inverses</a>
+  <ul class="collapse">
+  <li><a href="#woodbury-matrix-identity" id="toc-woodbury-matrix-identity" class="nav-link" data-scroll-target="#woodbury-matrix-identity">Woodbury matrix identity</a></li>
+  <li><a href="#generalised-inverse" id="toc-generalised-inverse" class="nav-link" data-scroll-target="#generalised-inverse">Generalised inverse</a></li>
+  </ul></li>
+  <li><a href="#derivatives" id="toc-derivatives" class="nav-link" data-scroll-target="#derivatives">Derivatives</a></li>
+  <li><a href="#determinants" id="toc-determinants" class="nav-link" data-scroll-target="#determinants">Determinants</a></li>
+  <li><a href="#eigen-decomposition" id="toc-eigen-decomposition" class="nav-link" data-scroll-target="#eigen-decomposition">Eigen-Decomposition</a>
+  <ul class="collapse">
+  <li><a href="#diagonalizable" id="toc-diagonalizable" class="nav-link" data-scroll-target="#diagonalizable">Diagonalizable</a></li>
+  </ul></li>
+  <li><a href="#illustrations" id="toc-illustrations" class="nav-link" data-scroll-target="#illustrations">Illustrations</a></li>
+  <li><a href="#partitioned-matrix" id="toc-partitioned-matrix" class="nav-link" data-scroll-target="#partitioned-matrix">Partitioned Matrix</a></li>
+  <li><a href="#non-negative-definite-matrices" id="toc-non-negative-definite-matrices" class="nav-link" data-scroll-target="#non-negative-definite-matrices">Non-negative definite matrices</a>
+  <ul class="collapse">
+  <li><a href="#positive-definite-matrices" id="toc-positive-definite-matrices" class="nav-link" data-scroll-target="#positive-definite-matrices">Positive definite matrices</a></li>
+  <li><a href="#positive-semi-definite-matrices" id="toc-positive-semi-definite-matrices" class="nav-link" data-scroll-target="#positive-semi-definite-matrices">Positive semi-definite matrices</a></li>
+  </ul></li>
+  <li><a href="#quadratic-form" id="toc-quadratic-form" class="nav-link" data-scroll-target="#quadratic-form">Quadratic Form</a></li>
+  <li><a href="#elementary-operator-matrix" id="toc-elementary-operator-matrix" class="nav-link" data-scroll-target="#elementary-operator-matrix">Elementary operator matrix</a></li>
+  <li><a href="#matrices-with-all-elements-equal" id="toc-matrices-with-all-elements-equal" class="nav-link" data-scroll-target="#matrices-with-all-elements-equal">Matrices with all elements equal</a>
+  <ul class="collapse">
+  <li><a href="#centering-matrix" id="toc-centering-matrix" class="nav-link" data-scroll-target="#centering-matrix">Centering matrix</a></li>
+  </ul></li>
+  <li><a href="#vector-space" id="toc-vector-space" class="nav-link" data-scroll-target="#vector-space">Vector Space</a>
+  <ul class="collapse">
+  <li><a href="#axioms-of-vector-space" id="toc-axioms-of-vector-space" class="nav-link" data-scroll-target="#axioms-of-vector-space">Axioms of vector space:</a></li>
+  <li><a href="#special-set-of-vectors" id="toc-special-set-of-vectors" class="nav-link" data-scroll-target="#special-set-of-vectors">Special set of vectors</a></li>
+  <li><a href="#basis" id="toc-basis" class="nav-link" data-scroll-target="#basis">Basis</a></li>
+  <li><a href="#vector-subspaces" id="toc-vector-subspaces" class="nav-link" data-scroll-target="#vector-subspaces">Vector subspaces</a></li>
+  </ul></li>
+  <li><a href="#diagonal-matrix" id="toc-diagonal-matrix" class="nav-link" data-scroll-target="#diagonal-matrix">Diagonal Matrix</a></li>
+  <li><a href="#triangular-matrix" id="toc-triangular-matrix" class="nav-link" data-scroll-target="#triangular-matrix">Triangular Matrix</a></li>
+  <li><a href="#transition-probability-matrix" id="toc-transition-probability-matrix" class="nav-link" data-scroll-target="#transition-probability-matrix">Transition Probability Matrix</a></li>
+  <li><a href="#orthogonal-matrix" id="toc-orthogonal-matrix" class="nav-link" data-scroll-target="#orthogonal-matrix">Orthogonal Matrix</a>
+  <ul class="collapse">
+  <li><a href="#special-cases" id="toc-special-cases" class="nav-link" data-scroll-target="#special-cases">Special Cases</a></li>
+  </ul></li>
+  <li><a href="#null-or-zero-matrices" id="toc-null-or-zero-matrices" class="nav-link" data-scroll-target="#null-or-zero-matrices">Null or Zero Matrices</a></li>
+  <li><a href="#identity-matrices" id="toc-identity-matrices" class="nav-link" data-scroll-target="#identity-matrices">Identity Matrices</a></li>
+  <li><a href="#symmetric-matrices" id="toc-symmetric-matrices" class="nav-link" data-scroll-target="#symmetric-matrices">Symmetric Matrices</a></li>
+  <li><a href="#skew-symmetric-matrices" id="toc-skew-symmetric-matrices" class="nav-link" data-scroll-target="#skew-symmetric-matrices">Skew-symmetric matrices</a></li>
+  <li><a href="#matrix-factorisation" id="toc-matrix-factorisation" class="nav-link" data-scroll-target="#matrix-factorisation">Matrix Factorisation</a></li>
+  <li><a href="#solving-linear-equations" id="toc-solving-linear-equations" class="nav-link" data-scroll-target="#solving-linear-equations">Solving Linear Equations</a></li>
+  <li><a href="#direct-sum" id="toc-direct-sum" class="nav-link" data-scroll-target="#direct-sum">Direct Sum</a></li>
+  <li><a href="#direct-product" id="toc-direct-product" class="nav-link" data-scroll-target="#direct-product">Direct Product</a></li>
+  <li><a href="#the-matrix-mathbfxscriptscriptstyle-topmathbfx" id="toc-the-matrix-mathbfxscriptscriptstyle-topmathbfx" class="nav-link" data-scroll-target="#the-matrix-mathbfxscriptscriptstyle-topmathbfx">The matrix <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\)</span></a></li>
+  <li><a href="#least-squares-equations" id="toc-least-squares-equations" class="nav-link" data-scroll-target="#least-squares-equations">Least Squares Equations</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Linear Algebra</h1>
+</div>
+
+
+
+
+
+<div class="quarto-title-meta">
+
+    
+    
+  </div>
+  
+
+</header>
+
+<section id="notations" class="level2 box">
+<h2 class="anchored" data-anchor-id="notations">Notations</h2>
+<ul>
+<li>The following conventions are used unless stated otherwise:
+<ul>
+<li>An italic, non-bold lower-case letter is a <em>scalar</em>, e.g.&nbsp;<span class="math inline">\(a, b\)</span>.</li>
+<li>An italic, bold lower-case letter is a <em>vector</em>, e.g.&nbsp;<span class="math inline">\(\boldsymbol{v}, \boldsymbol{w}\)</span>.</li>
+<li>A non-italic, bold upper-case letter is a <em>matrix</em>, e.g.&nbsp;<span class="math inline">\(\mathbf{A}, \mathbf{B}\)</span>.</li>
+</ul></li>
+<li>Matrix is a rectangular (two-dimensional) array of numbers arranged in rows and columns, with individual entries in the array referred to as <em>elements</em> or <em>terms</em> of the matrix.</li>
+<li>A matrix <span class="math inline">\(\mathbf{A}\)</span> with 2 rows and 3 columns can be conveniently written as <span class="math inline">\(\mathbf{A}_{2\times 3}\)</span> with dimensions on the subscript, or <span class="math display">\[\begin{bmatrix}
+a_{11} &amp; a_{12} &amp; a_{13} \\
+a_{21} &amp; a_{22} &amp; a_{23}
+\end{bmatrix} = \{a_{ij}\}\quad\text{for}\quad i=1,2;~j=1,2,3.\]</span></li>
+<li>A vector is a <em>column vector</em> (i.e.&nbsp;a matrix with a single column) in this cheatsheet.</li>
+<li>The elements of a matrix are usually scalar. A scalar can be thought of as a matrix with order <span class="math inline">\(1\times 1\)</span>.</li>
+</ul>
+<section id="operators" class="level3">
+<h3 class="anchored" data-anchor-id="operators">Operators</h3>
+<ul>
+<li><span class="math inline">\(\text{diag}\left(\mathbf{A}_{r\times r}\right) = (a_{11}, a_{22}, ..., a_{rr})^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\text{diag}\left(a_{11}, a_{22}, ..., a_{rr}\right) = \begin{bmatrix}a_{11} &amp; 0 &amp; \cdots &amp; 0\\ 0 &amp; a_{22} &amp; \ddots &amp; \vdots \\ \vdots &amp; \ddots &amp; \ddots &amp; 0 \\ 0 &amp; \cdots &amp; 0 &amp; a_{rr} \end{bmatrix}\)</span></li>
+<li>If <span class="math inline">\(\boldsymbol{a}=(a_{11}, a_{22}, ..., a_{rr})^{\scriptscriptstyle \top}\)</span>, then <span class="math display">\[\text{diag}(\boldsymbol{a})=\text{diag}\left(a_{11}, a_{22}, ..., a_{rr}\right).\]</span></li>
+<li><span class="math inline">\({\rm rank}\left(\mathbf{A}\right)\)</span> is the rank of a matrix <span class="math inline">\(\mathbf{A}\)</span>.</li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\right)\)</span> is the trace of a matrix <span class="math inline">\(\mathbf{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{R}(\mathbf{A})\)</span> is the range/span/column space of a matrix <span class="math inline">\(\mathbf{A}\)</span>.</li>
+<li><span class="math inline">\(\mathcal{N}(\mathbf{A})\)</span> is the kernel/null space of a matrix <span class="math inline">\(\mathbf{A}\)</span>.</li>
+</ul>
+</section>
+</section>
+<section id="elements-of-vectors" class="level2 box">
+<h2 class="anchored" data-anchor-id="elements-of-vectors">Elements of vectors</h2>
+<ul>
+<li>Inner product <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\boldsymbol{y}\)</span></li>
+<li>Outer product <span class="math inline">\(\boldsymbol{x}\boldsymbol{y}^{\scriptscriptstyle \top}\)</span></li>
+<li>Elementary vector of length <span class="math inline">\(n\)</span>, <span class="math inline">\(\boldsymbol{e}_i\)</span>, is the <span class="math inline">\(i\)</span>-th column of the identity matrix <span class="math inline">\(\mathbf{I}_n\)</span>.</li>
+<li><span class="math inline">\(\mathbf{I}_n = \sum_{i=1}^n \boldsymbol{e}_i\boldsymbol{e}_i^{\scriptscriptstyle \top}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{E}_{12} = \boldsymbol{e}_1\boldsymbol{e}_2^{\scriptscriptstyle \top}= \begin{bmatrix}0 &amp; 1 &amp; 0 \\0 &amp; 0 &amp; 0 \\ 0 &amp; 0 &amp; 0\end{bmatrix}\)</span></li>
+<li>A norm of a vector <span class="math inline">\(\boldsymbol{x}\)</span> is given as <span class="math inline">\(\sqrt{\boldsymbol{x}^{\scriptscriptstyle \top}\boldsymbol{x}}\)</span>.</li>
+<li>A vector is said to be either <em>normal</em> or a <em>unit vector</em> if its norm is unity.</li>
+<li>Non-null vectors <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are <em>orthogonal</em> if <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\boldsymbol{y}= 0\)</span>.</li>
+<li>Two vectors are <em>orthonormal vectors</em> if they are orthogonal and normal.</li>
+</ul>
+</section>
+<section id="elements-of-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="elements-of-matrices">Elements of matrices</h2>
+<section id="dimensionorder-of-a-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="dimensionorder-of-a-matrix">Dimension/Order of a matrix</h3>
+<ul>
+<li><p>The dimension or order of a matrix refer to the size of the matrix (i.e.&nbsp;the number of rows and the number of columns).</p></li>
+<li><p>A matrix with <span class="math inline">\(r\)</span> rows and <span class="math inline">\(c\)</span> columns has order <span class="math inline">\(r\times c\)</span>. When <span class="math inline">\(r=c\)</span>, it can simply be said that the matrix has order <span class="math inline">\(r\)</span>.</p></li>
+</ul>
+</section>
+<section id="diagonal-and-off-diagonal-elements" class="level3">
+<h3 class="anchored" data-anchor-id="diagonal-and-off-diagonal-elements">Diagonal and off-diagonal elements</h3>
+<ul>
+<li>For a square matrix <span class="math inline">\(\mathbf{A}_{r\times r}\)</span>, the elements <span class="math inline">\(a_{11}, a_{22}, ..., a_{rr}\)</span> are referred to as <em>diagonal elements</em>.</li>
+<li>The elements of a square matrix that lie in a line parallel to and just below the diagonal, i.e.&nbsp;<span class="math inline">\(a_{1,2}, ...,a_{i,j+1}, ..., a_{r-1,r}\)</span> and <span class="math inline">\(a_{2,1}, ...,a_{i,j-1}, ..., a_{r,r-1}\)</span>, are referred to as <em>subdiagonal elements</em>.</li>
+<li>The elements of square matrix that are not diagonal elements are referred to as <em>off-diagonal</em> or <em>non-diagonal elements</em>.</li>
+</ul>
+</section>
+<section id="the-laws-of-algebra" class="level3">
+<h3 class="anchored" data-anchor-id="the-laws-of-algebra">The laws of algebra</h3>
+<p>Assume all matrices are conformable for the operations performed.</p>
+<ul>
+<li>Associative laws of addition: <span class="math inline">\((\mathbf{A}+ \mathbf{B}) + \mathbf{C}= \mathbf{A}+ (\mathbf{B}+ \mathbf{C})\)</span>.</li>
+<li>Associative laws of products: <span class="math inline">\((\mathbf{A}\mathbf{B})\mathbf{C}= \mathbf{A}(\mathbf{B}\mathbf{C})\)</span>.</li>
+<li>Distributive law: <span class="math inline">\(\mathbf{A}(\mathbf{B}+ \mathbf{C}) = \mathbf{A}\mathbf{B}+ \mathbf{A}\mathbf{C}\)</span>.</li>
+<li>Commutative law of addition: <span class="math inline">\(\mathbf{A}+ \mathbf{B}= \mathbf{B}+ \mathbf{A}\)</span>.</li>
+<li>Commutative law of products do not hold.</li>
+</ul>
+</section>
+</section>
+<section id="rangespancolumn-space" class="level2 box">
+<h2 class="anchored" data-anchor-id="rangespancolumn-space">Range/Span/Column Space</h2>
+<p>Range, span or column space of <span class="math inline">\(\mathbf{X}\)</span> is denoted <span class="math inline">\(\mathcal{R}(\mathbf{X})\)</span> is the space or set of all possible linear combinations of the columns of <span class="math inline">\(\mathbf{X}\)</span>. Thus <span class="math inline">\(\mathbf{A}\in \mathcal{R}(\mathbf{X})\)</span> if <span class="math inline">\(\mathbf{A}=\mathbf{X}\boldsymbol{b}\)</span> for some <span class="math inline">\(\boldsymbol{b}\)</span>.</p>
+</section>
+<section id="kernelnull-space" class="level2 box">
+<h2 class="anchored" data-anchor-id="kernelnull-space">Kernel/Null space</h2>
+<p>Kernel or null space os a matrix <span class="math inline">\(\mathbf{X}\)</span> is denoted <span class="math inline">\(\mathcal{N}(\mathbf{X})\)</span> is the space of all possible linear combinations of vectors orthogonal to the columns of <span class="math inline">\(\mathbf{X}\)</span>.</p>
+</section>
+<section id="orthogonal-complement" class="level2 box">
+<h2 class="anchored" data-anchor-id="orthogonal-complement">Orthogonal complement</h2>
+<p>Let <span class="math inline">\(V\)</span> be a finite dimensional vector space and <span class="math inline">\(W\)</span> is a subspace of <span class="math inline">\(V\)</span>. Then the orthogonal complement of <span class="math inline">\(W\)</span>, denoted <span class="math inline">\(W^\perp\)</span>, is the set of vectors <span class="math display">\[\{\boldsymbol{v}\in V: \boldsymbol{v}^{\scriptscriptstyle \top}\boldsymbol{w}=0 \text{ for all } \boldsymbol{w}\in W\}.\]</span></p>
+<ul>
+<li><span class="math inline">\(W^\perp\)</span> is also a subspace of <span class="math inline">\(V\)</span></li>
+<li><span class="math inline">\((W^\perp)^\perp = W\)</span></li>
+<li><span class="math inline">\(\text{dim}(W^\perp) = \text{dim} V - \text{dim} W\)</span></li>
+<li><span class="math inline">\(V=W \oplus W^\perp\)</span></li>
+</ul>
+</section>
+<section id="rank" class="level2 box">
+<h2 class="anchored" data-anchor-id="rank">Rank</h2>
+<p>The <strong>rank</strong> of the matrix <span class="math inline">\(\mathbf{X}\)</span> or the <strong>dimension</strong> of <span class="math inline">\(\mathcal{R}(\mathbf{X})\)</span>, written as <span class="math inline">\(\text{rank}\left(\mathbf{X}\right)\)</span> or <span class="math inline">\(\text{dim}\left(\mathcal{R}(\mathbf{X})\right)\)</span>, is the number in the minimal (linearly independent) set of columns of <span class="math inline">\(\mathbf{X}\)</span> that span <span class="math inline">\(\mathcal{R}(\mathbf{X})\)</span>. Similar definition applies to any vector space <span class="math inline">\(V\)</span>, where the dimension of <span class="math inline">\(V\)</span> is the number of the vectors in any basis of <span class="math inline">\(V\)</span>.</p>
+<p>Suppose that <span class="math inline">\(\mathbf{A}\)</span> is an <span class="math inline">\(m\times n\)</span> matrix then</p>
+<ul>
+<li><span class="math inline">\({\rm rank}\left(\mathbf{A}\right) \leq \min (m,n)\)</span></li>
+<li>If <span class="math inline">\({\rm rank}\left(\mathbf{A}\right) = \min (m,n)\)</span> then the matrix <span class="math inline">\(\mathbf{A}\)</span> is said to have .</li>
+<li>Only a zero matrix has rank zero.</li>
+<li>If <span class="math inline">\(\mathbf{A}\)</span> is a square matrix (<span class="math inline">\(m=n\)</span>) then <span class="math inline">\(\mathbf{A}\)</span> is invertible if and only if <span class="math inline">\(\mathbf{A}\)</span> has rank <span class="math inline">\(n\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{B}\)</span> is any <span class="math inline">\(n\times k\)</span> matrix, then <span class="math inline">\({\rm rank}\left(\mathbf{A}\mathbf{B}\right) \leq \min({\rm rank}\left(\mathbf{A}\right), {\rm rank}\left(\mathbf{B}\right))\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{B}\)</span> is any <span class="math inline">\(n\times k\)</span> matrix of rank <span class="math inline">\(n\)</span>, then <span class="math inline">\({\rm rank}\left(\mathbf{A}\mathbf{B}\right) = {\rm rank}\left(\mathbf{A}\right)\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{C}\)</span> is any <span class="math inline">\(l\times m\)</span> matrix of rank <span class="math inline">\(m\)</span>, then <span class="math inline">\({\rm rank}\left(\mathbf{C}\mathbf{A}\right) = {\rm rank}\left(\mathbf{A}\right)\)</span>.</li>
+<li>The <span class="math inline">\({\rm rank}\left(\mathbf{A}\right)=r\)</span> if and only if there exists an invertible <span class="math inline">\(m\times m\)</span> matrix <span class="math inline">\(\mathbf{X}\)</span> and an invertible <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\mathbf{Y}\)</span> such that <span class="math inline">\(\mathbf{X}\mathbf{A}\mathbf{Y}= \begin{bmatrix}  \mathbf{I}_r &amp; \mathbf{0} \\  \mathbf{0} &amp; \mathbf{0}  \end{bmatrix}\)</span>.</li>
+<li><span class="math inline">\({\rm rank}\left(\mathbf{A}+ \mathbf{B}\right) \leq {\rm rank}\left(\begin{bmatrix}  \mathbf{A}&amp; \mathbf{B}\end{bmatrix}\right) \leq {\rm rank}\left(\mathbf{A}\right) + {\rm rank}\left(\mathbf{B}\right)\)</span></li>
+<li><strong>Sylvestor’s rank of nullity</strong>: If <span class="math inline">\(\mathbf{A}\)</span> is an <span class="math inline">\(m\times n\)</span> matrix and <span class="math inline">\(\mathbf{B}\)</span> is any <span class="math inline">\(n\times k\)</span> matrix, <span class="math inline">\({\rm rank}\left(A\right) + {\rm rank}\left(B\right) - n \leq {\rm rank}\left(AB\right)\)</span>.</li>
+<li>The inequality due to Frobenius: <span class="math inline">\({\rm rank}\left(AB\right) + {\rm rank}\left(BC\right) \leq {\rm rank}\left(B\right) + {\rm rank}\left(ABC\right)\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{A}\mathbf{B}\mathbf{A}= \mathbf{A}\)</span> then <span class="math inline">\({\rm rank}\left(\mathbf{B}\mathbf{A}\right) = {\rm rank}\left(\mathbf{A}\right)\)</span></li>
+<li><strong>Rank-nullity Theorem</strong>: The rank of a matrix plus the nullity of the matrix equals the number of columns of the matrix, i.e.&nbsp;<span class="math display">\[{\rm dim}\left(\mathcal{R}(\mathbf{A})\right) + {\rm dim}\left(\mathcal{N}(\mathbf{A})\right) = n.\]</span></li>
+<li><span class="math inline">\({\rm rank}\left(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}\right) = {\rm rank}\left(\mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}\right) = {\rm rank}\left(\mathbf{A}\right) = {\rm rank}\left(\mathbf{A}^{\scriptscriptstyle \top}\right)\)</span></li>
+</ul>
+</section>
+<section id="projection-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="projection-matrix">Projection matrix</h2>
+<p>For any <span class="math inline">\(\boldsymbol{v}\in V\)</span>, there are unique vectors <span class="math inline">\(\boldsymbol{x}\in W\)</span> and <span class="math inline">\(\boldsymbol{z}\in W^\perp\)</span> such that <span class="math inline">\(\boldsymbol{v} = \boldsymbol{x}+ \boldsymbol{z}\)</span>. We call <span class="math inline">\(\boldsymbol{x}\)</span> the projection of <span class="math inline">\(\boldsymbol{v}\)</span> onto <span class="math inline">\(W\)</span> and write <span class="math inline">\(\boldsymbol{x}= \mathbf{P}_W(\boldsymbol{v})\)</span>. In fact, <span class="math inline">\(\boldsymbol{x}= \mathbf{P}_W\boldsymbol{v}\)</span> where <span class="math inline">\(\mathbf{P}_W\)</span> is the projection matrix that maps any <span class="math inline">\(\boldsymbol{v}\in V\)</span> onto <span class="math inline">\(W\)</span>. Similarly <span class="math inline">\(\boldsymbol{z}\)</span> is the projection of <span class="math inline">\(\boldsymbol{v}\)</span> onto <span class="math inline">\(W^\perp\)</span> and the corresponding projection matrix is referred to as the orthogonal projection matrix, <span class="math inline">\(\mathbf{P}_{W^\perp}\)</span>. Note <span class="math inline">\(\boldsymbol{z} = \boldsymbol{v} - \mathbf{P}_W\boldsymbol{v}=(\mathbf{I} - \mathbf{P}_W)\boldsymbol{v}\)</span>. So <span class="math inline">\(\mathbf{P}_{W^\perp} = \mathbf{I} - \mathbf{P}_W\)</span>.</p>
+<p>The projection matrix <span class="math inline">\(\mathbf{P}_W\)</span> has the following basic properties:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{P}_W\)</span> is idempotent, i.e.&nbsp;<span class="math inline">\(\mathbf{P}_W^2 = \mathbf{P}_W\)</span>,</li>
+<li><span class="math inline">\(\mathbf{P}_W\boldsymbol{x}= \boldsymbol{x}\)</span> for all <span class="math inline">\(\boldsymbol{x}\in W\)</span> (i.e.&nbsp;<span class="math inline">\(\mathbf{P}_W\)</span> is the identity operator on <span class="math inline">\(W\)</span>),</li>
+<li>Every vector <span class="math inline">\(\boldsymbol{x}\in V\)</span> may be decomposed uniquely as <span class="math inline">\(\boldsymbol{v} = \boldsymbol{x}+ \boldsymbol{z}\)</span> with <span class="math inline">\(\boldsymbol{x}= \mathbf{P}_W\boldsymbol{v}\)</span> and <span class="math inline">\(\boldsymbol{z} = \mathbf{P}_{W^\perp}\boldsymbol{v} = (\mathbf{I} - \mathbf{P}_W)\boldsymbol{v}\)</span>.</li>
+<li>There exists matrix <span class="math inline">\(\mathbf{A}\)</span> with columns corresponding to orthonormal basis of <span class="math inline">\(W\)</span> such that <span class="math inline">\(\mathbf{P}_W = \mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}\)</span>.</li>
+</ul>
+<section id="projection-onto-the-range-of-a-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="projection-onto-the-range-of-a-matrix">Projection onto the range of a matrix</h3>
+<p>Suppose <span class="math inline">\(W=\mathcal{R}(\mathbf{X})\)</span>. Suppose <span class="math inline">\(\mathbf{P}_W\)</span> is a projection matrix onto <span class="math inline">\(W\)</span> and assume <span class="math inline">\(\mathbf{X}\)</span> is full-rank, then <span class="math inline">\(\mathbf{P}_W = \mathbf{X}(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^{-1}\mathbf{X}^{\scriptscriptstyle \top}\)</span>. Note there are, of course, other projection matrices onto <span class="math inline">\(W\)</span>. Note that the <span class="math inline">\({\rm tr}\left(\mathbf{P}_W\right) = {\rm rank}\left(\mathbf{X}\right)\)</span>.</p>
+</section>
+</section>
+<section id="idempotent-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="idempotent-matrix">Idempotent matrix</h2>
+<p>A matrix <span class="math inline">\(\mathbf{A}\)</span> such that <span class="math inline">\(\mathbf{A}= \mathbf{A}^2\)</span> is called <strong>idempotent</strong>. An idempotent matrix <span class="math inline">\(\mathbf{A}\)</span> has the following properties:</p>
+<ul>
+<li><span class="math inline">\(\mathbf{A}\)</span> is a square matrix</li>
+<li>the eigenvalues of <span class="math inline">\(\mathbf{A}\)</span> are either 0 or 1</li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\right) = {\rm rank}\left(\mathbf{A}\right)\)</span></li>
+<li><span class="math inline">\(\mathbf{A}\)</span> is singular unless <span class="math inline">\(\mathbf{A}= \mathbf{I}\)</span>, the identity matrix</li>
+<li><span class="math inline">\(\mathbf{I} - \mathbf{A}\)</span> is also an idempotent matrix</li>
+</ul>
+</section>
+<section id="nilpotent-and-unipotent-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="nilpotent-and-unipotent-matrices">Nilpotent and Unipotent matrices</h2>
+<ul>
+<li>A matrix <span class="math inline">\(\mathbf{A}\)</span> is nilpotent if <span class="math inline">\(\mathbf{A}^2 = \mathbf{0}\)</span>.</li>
+<li>A matrix <span class="math inline">\(\mathbf{A}\)</span> is unipotent if <span class="math inline">\(\mathbf{A}^2 = \mathbf{I}\)</span>.</li>
+</ul>
+</section>
+<section id="permutation-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="permutation-matrix">Permutation matrix</h2>
+<p>A permutation matrix <span class="math inline">\(\mathbf{P}\)</span> is a square binary matrix that has exactly one entry of 1 in each row and each column and 0s elsewhere. The properties of a permutation matrix include</p>
+<ul>
+<li>Pre-multiplying by <span class="math inline">\(\mathbf{P}\)</span> will result in permutation of the rows.</li>
+<li>Post-multiplying by <span class="math inline">\(\mathbf{P}\)</span> will result in permutation of the columns.</li>
+<li><span class="math inline">\(\mathbf{P}\)</span> is a orthogonal matrix.</li>
+<li><span class="math inline">\(\mathbf{P}^{-1} = \mathbf{P}^{\scriptscriptstyle \top}\)</span>.</li>
+</ul>
+</section>
+<section id="rotation-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="rotation-matrix">Rotation matrix</h2>
+<p>A rotation matrix <span class="math inline">\(\mathbf{R}\)</span> is a matrix that is used to perform a rotation in Euclidean space. For example the matrix <span class="math display">\[\mathbf{R} = \begin{bmatrix}
+\cos\theta &amp; -\sin\theta\\
+\sin\theta &amp; \cos\theta
+\end{bmatrix} \]</span> rotates points in the <span class="math inline">\(xy\)</span>-Cartesian plane (counter)-clockwise through an angle <span class="math inline">\(\theta\)</span> about the origin of the Cartesian coordinate system by (pre-) post-multiplying.</p>
+</section>
+<section id="traces" class="level2 box">
+<h2 class="anchored" data-anchor-id="traces">Traces</h2>
+<p>The <strong>trace</strong> of a square <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\mathbf{A}\)</span> is the sum of the diagonal elements and denoted <span class="math inline">\({\rm tr}\left(\mathbf{A}\right)\)</span>. The trace is not defined for a matrix that is not a square.</p>
+<p>Let <span class="math inline">\(\lambda_1, \lambda_2, ..., \lambda_n\)</span> be the eigenvalues of <span class="math inline">\(\mathbf{A}\)</span>; <span class="math inline">\(\mathbf{B}\)</span> and <span class="math inline">\(\mathbf{C}\)</span> are <span class="math inline">\(n\times n\)</span> matrices; and <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span> are vector of length <span class="math inline">\(n\)</span>.</p>
+<ul>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\right) = {\rm tr}\left(\mathbf{A}^{\scriptscriptstyle \top}\right)\)</span></li>
+<li>If <span class="math inline">\(a\)</span> is a scalar, then <span class="math inline">\({\rm tr}\left(a\right)=a\)</span>.</li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}+ \mathbf{B}\right) = {\rm tr}\left(\mathbf{A}\right) + {\rm tr}\left(\mathbf{B}\right)\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\mathbf{B}\right) = {\rm tr}\left(\mathbf{B}\mathbf{A}\right) = \sum_{i=1}^r\sum_{j=1}^c a_{ij}b_{ji}\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}\right) = {\rm tr}\left(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}\right) = \sum_{i=1}^r\sum_{j=1}^c a_{ij}^2\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\mathbf{B}\mathbf{C}\right) = {\rm tr}\left(\mathbf{B}\mathbf{C}\mathbf{A}\right) = {\rm tr}\left(\mathbf{C}\mathbf{A}\mathbf{B}\right)\)</span>. Note these are note equal to <span class="math inline">\({\rm tr}\left(\mathbf{C}\mathbf{B}\mathbf{A}\right)\)</span>.</li>
+<li><span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{y}= {\rm tr}\left(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{y}\right) = {\rm tr}\left(\mathbf{A}\boldsymbol{y}\boldsymbol{x}^{\scriptscriptstyle \top}\right)\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\right) = \sum_i^n \lambda_i\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}^k\right) = \sum_i^n \lambda_i^k\)</span></li>
+</ul>
+</section>
+<section id="vectormatrix-operations" class="level2 box">
+<h2 class="anchored" data-anchor-id="vectormatrix-operations">Vector/Matrix operations</h2>
+<ul>
+<li>A <strong>scalar product</strong> (also called <em>inner product</em> or <em>dot product</em>) for vectors <span class="math inline">\(\boldsymbol{v}\)</span>, <span class="math inline">\(\boldsymbol{w}\in \mathbb{R}^n\)</span> is written <span class="math inline">\(\boldsymbol{v}\cdot\boldsymbol{w}\)</span> and <span class="math display">\[\boldsymbol{v}\cdot\boldsymbol{w} = \boldsymbol{v}^{\scriptscriptstyle \top}\boldsymbol{w} = \displaystyle\sum_{i=1}^nv_i w_i = v_1 w_1 + .. + v_n w_n.\]</span> The (Euclidean) <strong>norm</strong> (sometimes called <em>length</em> or <em>magnitude</em>) of a vector <span class="math inline">\(\boldsymbol{v}\)</span> is written as <span class="math inline">\(||\boldsymbol{v}||\)</span> and note <span class="math inline">\(\boldsymbol{v}^{\scriptscriptstyle \top}\boldsymbol{v} = \displaystyle\sum_{i=1}^n v^2_i=||\boldsymbol{v}||^2\)</span>.</li>
+<li>A <strong>Hadamard product</strong> is given as <span class="math inline">\(\mathbf{A}\cdot \mathbf{B}= \{a_{ij}b_{ij}\}\)</span>.</li>
+<li>A <strong>Kronecker product</strong></li>
+<li>A <strong>matrix product</strong> of <span class="math inline">\(\mathbf{A}= \begin{bmatrix}\boldsymbol{a}_1^{\scriptscriptstyle \top}\\\boldsymbol{a}_2^{\scriptscriptstyle \top}\\\end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{B}= \begin{bmatrix}\boldsymbol{b}_1 &amp; \boldsymbol{b}_2 &amp; \boldsymbol{b}_3 &amp; \boldsymbol{b}_4 \end{bmatrix}\)</span>: <span class="math display">\[\mathbf{A}\mathbf{B}= \begin{bmatrix}
+\mathbf{A}\boldsymbol{b}_1 &amp; \mathbf{A}\boldsymbol{b}_2 &amp; \mathbf{A}\boldsymbol{b}_3 &amp; \mathbf{A}\boldsymbol{b}_4\end{bmatrix}\]</span> <span class="math display">\[\mathbf{A}\mathbf{B}= \begin{bmatrix}
+\boldsymbol{a}_1^{\scriptscriptstyle \top}\boldsymbol{b}_1 &amp; \boldsymbol{a}_1^{\scriptscriptstyle \top}\boldsymbol{b}_2 &amp; \boldsymbol{a}_1^{\scriptscriptstyle \top}\boldsymbol{b}_3 &amp; \boldsymbol{a}_1^{\scriptscriptstyle \top}\boldsymbol{b}_4\\
+\boldsymbol{a}_2^{\scriptscriptstyle \top}\boldsymbol{b}_1 &amp; \boldsymbol{a}_2^{\scriptscriptstyle \top}\boldsymbol{b}_2 &amp; \boldsymbol{a}_2^{\scriptscriptstyle \top}\boldsymbol{b}_3 &amp; \boldsymbol{a}_2^{\scriptscriptstyle \top}\boldsymbol{b}_4\\\end{bmatrix}\]</span></li>
+</ul>
+</section>
+<section id="transpose" class="level2 box">
+<h2 class="anchored" data-anchor-id="transpose">Transpose</h2>
+<ul>
+<li>If <span class="math inline">\(a_{ij}\)</span> is the <span class="math inline">\((i,j)\)</span>-th element of <span class="math inline">\(\mathbf{A}\)</span> then <span class="math inline">\(a_{ij}\)</span> is the <span class="math inline">\((j,i)\)</span>-th element of <span class="math inline">\(\mathbf{A}^\top\)</span>.</li>
+<li>The transpose operation is reflexive: <span class="math inline">\((\mathbf{A}^{\scriptscriptstyle \top})^{\scriptscriptstyle \top}= \mathbf{A}\)</span>.</li>
+<li><span class="math inline">\((\mathbf{A}+ \mathbf{B})^{\scriptscriptstyle \top}= \mathbf{A}^{\scriptscriptstyle \top}+ \mathbf{B}^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\mathbf{B})^{\scriptscriptstyle \top}= \mathbf{B}^{\scriptscriptstyle \top}\mathbf{A}^{\scriptscriptstyle \top}\)</span></li>
+<li>Transposing a partitioned matrix: <span class="math display">\[\begin{bmatrix}
+      \mathbf{A}&amp; \mathbf{B}&amp; \mathbf{C}\\    
+      \mathbf{D} &amp; \mathbf{E} &amp; \mathbf{F}
+      \end{bmatrix}^{\scriptscriptstyle \top}= \begin{bmatrix}
+      \mathbf{A}^{\scriptscriptstyle \top}&amp; \mathbf{D}^{\scriptscriptstyle \top}\\
+      \mathbf{B}^{\scriptscriptstyle \top}&amp; \mathbf{E}^{\scriptscriptstyle \top}\\
+      \mathbf{C}^{\scriptscriptstyle \top}&amp; \mathbf{F}^{\scriptscriptstyle \top}
+      \end{bmatrix}\]</span></li>
+<li><span class="math inline">\(\left(\mathbf{A}^{-1}\right)^{\scriptscriptstyle \top}= \left(\mathbf{A}^{\scriptscriptstyle \top}\right)^{-1}\)</span></li>
+</ul>
+</section>
+<section id="inverses" class="level2 box">
+<h2 class="anchored" data-anchor-id="inverses">Inverses</h2>
+<ul>
+<li>The <strong>inverse</strong> of a square matrix <span class="math inline">\(\mathbf{A}\)</span> is the unique matrix <span class="math inline">\(\mathbf{A}^{-1}\)</span> such that <span class="math inline">\(\mathbf{A}^{-1}\mathbf{A}=\mathbf{A}\mathbf{A}^{-1}=\mathbf{I}.\)</span> Note that <span class="math inline">\(\mathbf{A}^{-1}\)</span> does not always exist.</li>
+<li><span class="math inline">\(\mathbf{A}^{-1} = |\mathbf{A}|^{-1}\text{adj}\mathbf{A}\)</span> where <span class="math inline">\(\text{adj}\mathbf{A}\)</span> is the <strong>adjugate</strong> (or adjoint) matrix of <span class="math inline">\(\mathbf{A}\)</span> (the transpose of the matrix of co-factors).</li>
+<li>Inverse of a matrix <span class="math inline">\(\mathbf{A}\)</span> does not exist if <span class="math inline">\(|\mathbf{A}| = 0\)</span> and <span class="math inline">\(\mathbf{A}\)</span> is said to be <em>singular</em>.</li>
+<li><span class="math inline">\((\mathbf{A}^{\scriptscriptstyle \top})^{-1} = (\mathbf{A}^{-1})^{\scriptscriptstyle \top}\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{A}\)</span> is symmetric so is its inverse: if <span class="math inline">\(\mathbf{A}^{\scriptscriptstyle \top}= \mathbf{A}\)</span> then <span class="math inline">\((\mathbf{A}^{-1})^{\scriptscriptstyle \top}= \mathbf{A}^{-1}\)</span>.</li>
+<li><span class="math inline">\((\mathbf{A}\otimes \mathbf{B})^{-1} = \mathbf{A}^{-1}\otimes \mathbf{B}^{-1}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\oplus \mathbf{B})^{-1} = \mathbf{A}^{-1}\oplus \mathbf{B}^{-1}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\mathbf{B})^{-1} = \mathbf{B}^{-1}\mathbf{A}^{-1}\)</span>.</li>
+<li><span class="math inline">\((a\mathbf{I}_n + b\mathbf{J}_n)^{-1} = \dfrac{1}{a}\left(\mathbf{I}_n - \dfrac{b}{a+nb}\mathbf{J}_n\right)\)</span> if <span class="math inline">\(a\neq =0\)</span> and <span class="math inline">\(a + nb \neq 0\)</span>.</li>
+<li><span class="math display">\[\begin{bmatrix}
+      \mathbf{R} &amp; \boldsymbol{0} \\
+      \mathbf{X}&amp; \mathbf{S}
+      \end{bmatrix}^{-1} = \begin{bmatrix}
+      \mathbf{R}^{-1} &amp; \boldsymbol{0} \\
+      -\mathbf{S}^{-1}\mathbf{X}\mathbf{R}^{-1} &amp; \mathbf{S}^{-1}
+      \end{bmatrix}\]</span></li>
+<li><span class="math inline">\(\displaystyle \mathbf{A}= \begin{bmatrix}  a &amp; b \\  c &amp; d  \end{bmatrix}\)</span> then <span class="math inline">\(\mathbf{A}^{-1} = \dfrac{1}{ab - cd} \begin{bmatrix}  d &amp; -b \\  -c &amp; a  \end{bmatrix}\)</span>.</li>
+<li>Suppose we have the partitioned matrix <span class="math inline">\(\mathbf{A}= \begin{bmatrix}  \mathbf{A}_{11} &amp; \mathbf{A}_{12} \\  \mathbf{A}_{21} &amp; \mathbf{A}_{22}  \end{bmatrix}\)</span> then <span class="math inline">\(\mathbf{A}^{-1}\)</span> <span class="math display">\[\begin{bmatrix}
+      (\mathbf{A}_{11} - \mathbf{A}_{12}\mathbf{A}_{22}^{-1}\mathbf{A}_{21})^{-1} &amp; -\mathbf{A}_{11}^{-1}\mathbf{A}_{12}(\mathbf{A}_{22} - \mathbf{A}_{21}\mathbf{A}_{11}^{-1}\mathbf{A}_{12})^{-1} \\
+      -\mathbf{A}_{22}^{-1}\mathbf{A}_{21}(\mathbf{A}_{11} - \mathbf{A}_{12}\mathbf{A}_{22}^{-1}\mathbf{A}_{21})^{-1} &amp; (\mathbf{A}_{22} - \mathbf{A}_{21}\mathbf{A}_{11}^{-1}\mathbf{A}_{12})^{-1}
+      \end{bmatrix}\]</span> <span class="math display">\[\begin{bmatrix}
+      (\mathbf{A}_{11} - \mathbf{A}_{12}\mathbf{A}_{22}^{-1}\mathbf{A}_{21})^{-1} &amp; -(\mathbf{A}_{11} - \mathbf{A}_{12}\mathbf{A}_{22}^{-1}\mathbf{A}_{21})^{-1}\mathbf{A}_{12}\mathbf{A}_{22}^{-1} \\
+      -(\mathbf{A}_{22} - \mathbf{A}_{21}\mathbf{A}_{11}^{-1}\mathbf{A}_{12})^{-1}\mathbf{A}_{21}\mathbf{A}_{11}^{-1} &amp; (\mathbf{A}_{22} - \mathbf{A}_{21}\mathbf{A}_{11}^{-1}\mathbf{A}_{12})^{-1}
+      \end{bmatrix}\]</span></li>
+</ul>
+<section id="woodbury-matrix-identity" class="level3">
+<h3 class="anchored" data-anchor-id="woodbury-matrix-identity">Woodbury matrix identity</h3>
+<p><span class="math display">\[\left(\mathbf{A}+ \mathbf{U}\mathbf{B}\mathbf{V}\right)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}(\mathbf{B}^{-1} + \mathbf{V}\mathbf{A}^{-1}\mathbf{U})^{-1}\mathbf{V}\mathbf{A}^{-1}.\]</span> Alternatively, deal with <span class="math display">\[\left(\mathbf{A}+ \mathbf{U}\mathbf{B}\mathbf{V}\right)^{-1} = \mathbf{A}^{-1} - \mathbf{A}^{-1}\mathbf{U}\mathbf{B}\boldsymbol{V}(\mathbf{I} + \mathbf{A}^{-1}\mathbf{U}\mathbf{B}\mathbf{V})^{-1}\mathbf{A}^{-1}.\]</span> Special case: <span class="math display">\[(\mathbf{A}+ \boldsymbol{u}\boldsymbol{v}^{\scriptscriptstyle \top})^{-1} = \mathbf{A}^{-1} - \dfrac{\mathbf{A}^{-1}\boldsymbol{u}\boldsymbol{v}^{\scriptscriptstyle \top}\mathbf{A}^{-1}}{1 + \boldsymbol{v}^{\scriptscriptstyle \top}\mathbf{A}^{-1}\boldsymbol{u}}\]</span></p>
+</section>
+<section id="generalised-inverse" class="level3">
+<h3 class="anchored" data-anchor-id="generalised-inverse">Generalised inverse</h3>
+<ul>
+<li>For a given matrix <span class="math inline">\(\mathbf{A}\in \mathbb{R}^{n \times m}\)</span>, if <span class="math inline">\(\mathbf{A}^{-} \in \mathbb{R}^{m \times n}\)</span> is such that <span class="math display">\[\boldsymbol{AA}^{-}\mathbf{A}= \mathbf{A}\]</span> then <span class="math inline">\(\mathbf{A}^{-}\)</span> is a <strong>generalised inverse</strong> of <span class="math inline">\(\mathbf{A}\)</span>. If <span class="math inline">\(\mathbf{A}^{-}\)</span> also satisfies <span class="math display">\[\mathbf{A}^{-}\mathbf{A}\mathbf{A}^{-} = \mathbf{A}^{-}\]</span> then <span class="math inline">\(\mathbf{A}^{-}\)</span> is a <strong>generalised reflexive inverse</strong> of .</li>
+</ul>
+<p>If <span class="math inline">\(\mathbf{A}^{-}\)</span> satisfies the above two conditions and also <span class="math display">\[ (\mathbf{A}\mathbf{A}^{-})^{\scriptscriptstyle \top}= \mathbf{A}\mathbf{A}^{-}\quad\text{ and }\quad (\mathbf{A}^{-}\mathbf{A})^{\scriptscriptstyle \top}= \mathbf{A}^{-}\mathbf{A},\]</span> then <span class="math inline">\(\mathbf{A}^{-}\)</span> is the <strong>Moore-Penrose pseudoinverse</strong> of <span class="math inline">\(\mathbf{A}\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\mathbf{A}^-\)</span> is generally not unique (as opposed to <span class="math inline">\(\mathbf{A}^{-1}\)</span>) although the Moore-Penrose pseudoinverse exists and unique for any matrix.</li>
+<li>For symmetric matrix <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(\mathbf{G}=\mathbf{A}^-\)</span> may not be symmetric although <span class="math inline">\(\mathbf{G}^{\scriptscriptstyle \top}\)</span> is still a generalised inverse.</li>
+</ul>
+</section>
+</section>
+<section id="derivatives" class="level2 box">
+<h2 class="anchored" data-anchor-id="derivatives">Derivatives</h2>
+<p>Let <span class="math inline">\(a\)</span> be a constant that is not a function of <span class="math inline">\(\boldsymbol{x}\)</span>; <span class="math inline">\(b\)</span> a constant that is a function of <span class="math inline">\(\boldsymbol{x}\)</span>; vectors <span class="math inline">\(\boldsymbol{u}\)</span> and <span class="math inline">\(\boldsymbol{v}\)</span> functions of <span class="math inline">\(\boldsymbol{x}\)</span>, and a matrix <span class="math inline">\(\mathbf{A}\)</span> that is not a function of <span class="math inline">\(\boldsymbol{x}\)</span> and a non-singular matrix <span class="math inline">\(\mathbf{B}\)</span> that is a function of the scalar <span class="math inline">\(s\)</span>.</p>
+<ul>
+<li><span class="math inline">\(\displaystyle \frac{\partial a}{\partial \boldsymbol{x}} = \boldsymbol{0}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \boldsymbol{x}}{\partial \boldsymbol{x}} = \mathbf{I}_m\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \boldsymbol{Ax}}{\partial \boldsymbol{x}} = \mathbf{A}^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}}{\partial \boldsymbol{x}} = \mathbf{A}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial a\boldsymbol{u}}{\partial \boldsymbol{x}} = a\frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial b\boldsymbol{u}}{\partial \boldsymbol{x}} = b\frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}} + \frac{\partial b}{\partial \boldsymbol{x}}\boldsymbol{u}^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \boldsymbol{Au}}{\partial \boldsymbol{x}} = \frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}}\mathbf{A}^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial (\boldsymbol{u} + \boldsymbol{v})}{\partial \boldsymbol{x}} = \frac{\partial \boldsymbol{u}}{\partial \boldsymbol{x}} + \frac{\partial \boldsymbol{v}}{\partial \boldsymbol{x}}\)</span></li>
+<li>$ = $</li>
+<li>$ = + $</li>
+<li>$ = + ^ $</li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \mathbf{B}^{-1}}{\partial s} = -\mathbf{B}^{-1} \frac{\partial \mathbf{B}}{\partial s} \mathbf{B}^{-1}\)</span></li>
+<li><span class="math inline">\(\displaystyle \frac{\partial \log|\mathbf{B}|}{\partial s} = {\rm tr}\left(\mathbf{B}^{-1}\frac{\partial \mathbf{B}}{\partial s}\right)\)</span></li>
+</ul>
+</section>
+<section id="determinants" class="level2 box">
+<h2 class="anchored" data-anchor-id="determinants">Determinants</h2>
+<ul>
+<li><p>Determinants of non-square matrix are undefined.</p></li>
+<li><p>For a <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\mathbf{A}= \{a_{ij}\}\)</span> the determinant can be obtained by expanding by elements of a row: <span class="math display">\[|\mathbf{A}| = \sum_{j=1}^n a_{ij} (-1)^{i + j} |\mathbf{M}_{ij}|\]</span> for any <span class="math inline">\(i = 1, ..., n\)</span> where the <strong>minor</strong> of <span class="math inline">\(a_{ij}\)</span>, <span class="math inline">\(|\mathbf{M}_{ij}|\)</span>, is the determinant of <span class="math inline">\(\mathbf{A}\)</span> with rows <span class="math inline">\(i\)</span> and <span class="math inline">\(j\)</span> removed. The determinant can also be obtained by expanding elements of a column in a similar fashion.</p></li>
+<li><p>The signed minor <span class="math inline">\((-1)^{i + j} |\mathbf{M}_{ij}|\)</span> is referred to as <strong>cofactor</strong>.</p></li>
+<li><p><span class="math inline">\(|\mathbf{A}\mathbf{B}| = |\mathbf{B}\mathbf{A}|= |\mathbf{A}||\mathbf{B}|\)</span> if <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span> are square matrices.</p></li>
+<li><p>If <span class="math inline">\(\mathbf{B}\)</span> is obtained from <span class="math inline">\(\mathbf{A}\)</span> by swapping two rows then <span class="math inline">\(|\mathbf{A}| = -|\mathbf{B}|\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\mathbf{B}\)</span> is obtained from <span class="math inline">\(\mathbf{A}\)</span> by adding a multiple of a row (column) to a row (column) then <span class="math inline">\(|\mathbf{A}| = |\mathbf{B}|\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\mathbf{B}\)</span> is obtained from <span class="math inline">\(\mathbf{A}\)</span> by taking out a common factor <span class="math inline">\(\lambda\)</span> from each entry in a row of <span class="math inline">\(\mathbf{A}\)</span> then <span class="math inline">\(|\mathbf{A}| = \lambda |\mathbf{B}|\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\mathbf{A}\)</span> is a triangular matrix then <span class="math inline">\(|\mathbf{A}| = a_{11}a_{22}...a_{nn}\)</span>.</p></li>
+<li><p><span class="math inline">\(|\mathbf{A}| = |\mathbf{A}^{\scriptscriptstyle \top}|\)</span>.</p></li>
+<li><p><span class="math inline">\(|\mathbf{A}^k| = |\mathbf{A}|^k\)</span>.</p></li>
+<li><p><span class="math inline">\(|\mathbf{A}^{-1}| = |\mathbf{A}|^{-1}\)</span>.</p></li>
+<li><p>If <span class="math inline">\(\mathbf{A}\)</span> is an <span class="math inline">\(n\times n\)</span> matrix then <span class="math inline">\(|k\mathbf{A}| = k^n|\mathbf{A}|\)</span> where <span class="math inline">\(k \in \mathbb{R}\)</span>.</p></li>
+<li><p>If two rows of <span class="math inline">\(\mathbf{A}\)</span> are the same, <span class="math inline">\(|\mathbf{A}| = 0\)</span>.</p></li>
+<li><p>If a row of <span class="math inline">\(\mathbf{A}\)</span> has zero for every element then <span class="math inline">\(|\mathbf{A}| = 0\)</span>.</p></li>
+<li><p>For orthogonal <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(|\mathbf{A}|=\pm 1\)</span> since <span class="math inline">\(\mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}= \mathbf{I}\)</span> implies <span class="math inline">\(|\mathbf{A}|^2 = 1\)</span>.</p></li>
+<li><p>For idempotent <span class="math inline">\(\mathbf{A}\)</span>, <span class="math inline">\(|\mathbf{A}|=0\)</span> or 1 because <span class="math inline">\(|\mathbf{A}|^2 = |\mathbf{A}|\)</span>.</p></li>
+<li><p><span class="math inline">\(|\mathbf{A}| = \prod_{i=1}^{n} \lambda_i\)</span></p></li>
+<li><p><span class="math inline">\(|\mathbf{A}\otimes \mathbf{B}| = |\mathbf{A}|^m |\mathbf{B}|^n\)</span> where <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span> are square matrices of size <span class="math inline">\(n\)</span> and <span class="math inline">\(m\)</span>, respectively.</p></li>
+<li><p>For square matrices of the same dimension <span class="math inline">\(\mathbf{A}, \mathbf{B}, \mathbf{C}\)</span>: <span class="math display">\[\begin{vmatrix}
+\mathbf{A}&amp; \mathbf{0} \\
+\mathbf{B}&amp; \mathbf{C}
+\end{vmatrix} = |\mathbf{A}||\mathbf{C}|\quad\text{and}\quad\begin{vmatrix}\mathbf{0} &amp; \mathbf{A}\\
+-\mathbf{I} &amp; \mathbf{B}
+\end{vmatrix} = |\mathbf{A}|.\]</span></p></li>
+<li><p><strong>Sylvestor’s theorem for determinants</strong> <span class="math display">\[|\mathbf{A}+ \mathbf{B}\mathbf{C}\mathbf{D}^{\scriptscriptstyle \top}| = |\mathbf{C}^{-1} + \mathbf{D}^{\scriptscriptstyle \top}\mathbf{A}^{-1}\mathbf{B}||\mathbf{A}||\mathbf{C}|\]</span></p></li>
+</ul>
+</section>
+<section id="eigen-decomposition" class="level2 box">
+<h2 class="anchored" data-anchor-id="eigen-decomposition">Eigen-Decomposition</h2>
+<p>If <span class="math inline">\(\mathbf{A}\)</span> is an <span class="math inline">\(n\times n\)</span> matrix, <span class="math inline">\(\boldsymbol{x}\)</span> a non-zero <span class="math inline">\(n\times 1\)</span> column vector and <span class="math inline">\(\lambda\)</span> is a scalar such that <span class="math inline">\(\mathbf{A}\boldsymbol{x}= \lambda \boldsymbol{x}\)</span>, we call <span class="math inline">\(\boldsymbol{x}\)</span> an <strong>eigenvector</strong> of <span class="math inline">\(\mathbf{A}\)</span>, and <span class="math inline">\(\lambda\)</span> the corresponding <strong>eigenvalue</strong> (or <span class="math inline">\(\lambda\)</span>-eigenvector of <span class="math inline">\(A\)</span>). The set <span class="math inline">\(\{\boldsymbol{x}\in \mathbb{R}^{n} | \mathbf{A}\boldsymbol{x}= \lambda \boldsymbol{x}\}\)</span> is called the <span class="math inline">\(\lambda\)</span>-<strong>eigenspace</strong> of <span class="math inline">\(\mathbf{A}\)</span> and comprises of the <span class="math inline">\(\lambda\)</span>-eigenvectors and <span class="math inline">\(\boldsymbol{0}\)</span>.</p>
+<ul>
+<li>A number <span class="math inline">\(\lambda\)</span> is an eigenvalue of <span class="math inline">\(\mathbf{A}\)</span> if and only if <span class="math inline">\(|\mathbf{A}-\lambda \mathbf{I}_n| = 0\)</span>.</li>
+</ul>
+<section id="diagonalizable" class="level3">
+<h3 class="anchored" data-anchor-id="diagonalizable">Diagonalizable</h3>
+<p><strong>Diagonalizable Theorem</strong>: If <span class="math inline">\(\mathbb{R}^n\)</span> is a basis of <span class="math inline">\(\{\boldsymbol{v}_1, \boldsymbol{v}_2, ..., \boldsymbol{v}_n \}\)</span> consisting of eigenvectors of an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\mathbf{A}\)</span> then there exists an invertible matrix <span class="math inline">\(\mathbf{P}\)</span> and a diagonal matrix <span class="math inline">\(\mathbf{D}\)</span> such that <span class="math inline">\(\mathbf{D} = \mathbf{P}^{-1}\mathbf{A}\mathbf{P}\)</span>. And so <span class="math inline">\(\mathbf{A}^n = \mathbf{P}\mathbf{D}^{n}\mathbf{P}^{-1}\)</span>.</p>
+<ul>
+<li>Projection matrix are diagonalizable with 0s and 1s on the diagonal.</li>
+<li>Real symmetric matrices are (orthogonally) diagonalizable by orthogonal matrices so <span class="math inline">\(\mathbf{D} = \mathbf{Q}^{\scriptscriptstyle \top}\mathbf{A}\mathbf{Q}\)</span> where <span class="math inline">\(\mathbf{Q}\)</span> is an orthogonal matrix.</li>
+<li><span class="math inline">\(\mathbf{A}\)</span> is diagonalizable if and only if the sum of the dimensions of its eigenspaces is equal to <span class="math inline">\(n\)</span>.</li>
+</ul>
+</section>
+</section>
+<section id="illustrations" class="level2 box">
+<h2 class="anchored" data-anchor-id="illustrations">Illustrations</h2>
+<ul>
+<li><strong>Generation matrix</strong> <span class="math inline">\(\mathbf{A}\)</span>: relating the frequencies of mating types in one generation to those in another <span class="math inline">\(f^{(i+1)} = \mathbf{A}f^{(i)}\)</span>.</li>
+<li><strong>Markov Chain</strong>: <span class="math inline">\(\boldsymbol{x}\)</span> is a <em>state probability vector</em> and <span class="math inline">\(\mathbf{P}\)</span> is the transition probability matrix which is related by <span class="math inline">\(\boldsymbol{x}_{n+1}^{\scriptscriptstyle \top}= \boldsymbol{x}_n^{\scriptscriptstyle \top}\mathbf{P} = \boldsymbol{x}_0^{\scriptscriptstyle \top}\mathbf{P}^{n+1}\)</span>. Note <span class="math inline">\(\mathbf{P}^n\boldsymbol{1} = \boldsymbol{1}\)</span>.</li>
+<li><strong>Linear Programming</strong>: below are equivalent.
+<ol type="1">
+<li>minimise <span class="math inline">\(f=\boldsymbol{c}^{\scriptscriptstyle \top}\boldsymbol{x}\)</span> subject to <span class="math inline">\(\mathbf{A}\boldsymbol{x}\geq \boldsymbol{r}\)</span> and <span class="math inline">\(\boldsymbol{x}\geq \boldsymbol{0}\)</span></li>
+<li>maximise <span class="math inline">\(g=\boldsymbol{r}^{\scriptscriptstyle \top}\boldsymbol{z}\)</span> subject to <span class="math inline">\(\mathbf{A}\boldsymbol{z} \leq \boldsymbol{r}\)</span> and <span class="math inline">\(\boldsymbol{z} \geq \boldsymbol{0}\)</span></li>
+</ol></li>
+<li><strong>Graph Theory</strong>: Suppose a set of communication stations <span class="math inline">\(\{S_i\}\)</span>. <span class="math inline">\(\mathbf{T} = \{t_{ij}\}\)</span> where <span class="math inline">\(t_{ij} = 0\)</span> except <span class="math inline">\(t_{ij}=1\)</span> if a message can be sent from <span class="math inline">\(S_i\)</span> to <span class="math inline">\(S_j\)</span>. Then <span class="math inline">\(\mathbf{T}^r = \{t_{ij}^{(r)}\}\)</span>, the element <span class="math inline">\(t_{ij}^{(r)}\)</span> is then the number of ways of getting a message from station <span class="math inline">\(i\)</span> to station <span class="math inline">\(j\)</span> in exactly <span class="math inline">\(r\)</span> steps.</li>
+</ul>
+</section>
+<section id="partitioned-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="partitioned-matrix">Partitioned Matrix</h2>
+<ul>
+<li>If <span class="math inline">\(\mathbf{A}_{r\times c} = \begin{bmatrix} \boldsymbol{\alpha}^{\scriptscriptstyle \top}_1 \\ \vdots \\ \boldsymbol{\alpha}^{\scriptscriptstyle \top}_r \\ \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{B}_{c\times s} = \begin{bmatrix} \boldsymbol{b}_1 &amp; \cdots &amp; \boldsymbol{b}_s \end{bmatrix}\)</span>: <span class="math display">\[\mathbf{A}\mathbf{B}= \{\boldsymbol{\alpha}^{\scriptscriptstyle \top}_i \boldsymbol{b}_j\} = \left\{\sum_{k=1}^c a_{ik}b_{kj}\right\}\]</span></li>
+<li>If <span class="math inline">\(\mathbf{A}= \begin{bmatrix} \mathbf{A}_{11} &amp; \mathbf{A}_{12} \\ \mathbf{A}_{21} &amp; \mathbf{A}_{22} \end{bmatrix}\)</span> and <span class="math inline">\(\mathbf{B}= \begin{bmatrix} \mathbf{B}_{11}\\ \mathbf{B}_{21} \end{bmatrix}\)</span> then <span class="math display">\[\mathbf{A}\mathbf{B}= \begin{bmatrix}\mathbf{A}_{11}\mathbf{B}_{11} + \mathbf{A}_{12}\mathbf{B}_{21}\\
+\mathbf{A}_{21}\mathbf{B}_{11} + \mathbf{A}_{22}\mathbf{B}_{21}
+\end{bmatrix}\]</span></li>
+</ul>
+</section>
+<section id="non-negative-definite-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="non-negative-definite-matrices">Non-negative definite matrices</h2>
+<section id="positive-definite-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="positive-definite-matrices">Positive definite matrices</h3>
+<p>A symmetric <span class="math inline">\(n\times n\)</span> real matrix <span class="math inline">\(\mathbf{A}\)</span> is said to be <strong>positive definite</strong> if $^&gt; 0 $ is positive for every non-zero column vector <span class="math inline">\(\boldsymbol{x}\)</span>.</p>
+<p>A positive definite matrix holds the following properties:</p>
+<ul>
+<li>all its eigenvalues are positive</li>
+<li>every positive definite matrix is invertible and its inverse is also positive definite.</li>
+<li>it has a unique <strong>Cholesky decomposition</strong>: the matrix <span class="math inline">\(\mathbf{A}\)</span> is positive definite if and only if there exists a unique lower triangular matrix <span class="math inline">\(\boldsymbol{L}\)</span>, with real and strictly positive diagonal elements, such that <span class="math inline">\(\mathbf{A}= \boldsymbol{L}\boldsymbol{L}^{\scriptscriptstyle \top}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{A}\mathbf{X}\)</span> is positive-semidefinite. If <span class="math inline">\(\mathbf{X}\)</span> is invertible, then <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{A}\mathbf{X}\)</span> is positive definite. Note that <span class="math inline">\(\mathbf{X}^{-1}\mathbf{A}\mathbf{X}\)</span> does not need to be positive definite.</li>
+</ul>
+</section>
+<section id="positive-semi-definite-matrices" class="level3">
+<h3 class="anchored" data-anchor-id="positive-semi-definite-matrices">Positive semi-definite matrices</h3>
+<p>A symmetric matrix <span class="math inline">\(\mathbf{A}\)</span> is <strong>positive semi-definite</strong> if <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{x}\geq 0\)</span> for all <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{x}=0\)</span> for some <span class="math inline">\(\boldsymbol{x}\neq \boldsymbol{0}\)</span>.</p>
+<ul>
+<li>When <span class="math inline">\(\mathbf{A}\)</span> is p.(s.)d.&nbsp;so is <span class="math inline">\(\mathbf{P}\mathbf{A}\mathbf{P}^{\scriptscriptstyle \top}\)</span> for nonsingular <span class="math inline">\(\mathbf{P}\)</span>.</li>
+<li>For real <span class="math inline">\(\mathbf{X}\)</span>, <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\)</span> is n.n.d. It is p.d. when <span class="math inline">\(\mathbf{X}\)</span> has full rank or else it is p.s.d.</li>
+</ul>
+</section>
+</section>
+<section id="quadratic-form" class="level2 box">
+<h2 class="anchored" data-anchor-id="quadratic-form">Quadratic Form</h2>
+<ul>
+<li>The <strong>quadratic form</strong> of a matrix is given as <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{x}= \sum_i \sum_j x_i x_j a_{ij}\)</span>.</li>
+<li>For any particular quadratic form, there is a unique symmetric matrix <span class="math inline">\(\mathbf{A}\)</span> for which the quadratic form can be expressed as <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{x}\)</span>.</li>
+<li>If we have the quadratic form <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{A}\boldsymbol{x}\)</span> where <span class="math inline">\(\mathbf{A}\)</span> is not symmetric then we can rewrite it as <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\left[\frac{1}{2}(\mathbf{A}+ \mathbf{A}^{\scriptscriptstyle \top})\right]\boldsymbol{x}\)</span> where <span class="math inline">\(\frac{1}{2}(\mathbf{A}+ \mathbf{A}^{\scriptscriptstyle \top})\)</span> is a unique symmetric matrix.</li>
+</ul>
+</section>
+<section id="elementary-operator-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="elementary-operator-matrix">Elementary operator matrix</h2>
+<p>There are three types of elementary operator matrices: * <em>Adding multiple of a row to another row</em>. Let <span class="math inline">\(\mathbf{E}_{ij}(k)\)</span> be an identity matrix where the off-diagonal element <span class="math inline">\((i,j)\)</span> is <span class="math inline">\(k\)</span>. Then <span class="math inline">\(\mathbf{E}_{ij}(k)\mathbf{A}\)</span> is the operation on <span class="math inline">\(\mathbf{A}\)</span> of adding to its <span class="math inline">\(i\)</span>-th row <span class="math inline">\(k\)</span> times its <span class="math inline">\(j\)</span>-th row. Note <span class="math inline">\(|\mathbf{E}_{ij}(k)| = 1\)</span>. * <em>Interchanging two rows of a matrix</em>. Let <span class="math inline">\(\mathbf{P}_{ij}\)</span> be an identity matrix with <span class="math inline">\(i\)</span>-th and <span class="math inline">\(j\)</span>-th rows interchanged. Note <span class="math inline">\(|\mathbf{P}_{ij}| = -1\)</span>. * <em>Multiplying a row by a scalar <span class="math inline">\(k\)</span></em>. Let <span class="math inline">\(\mathbf{R}_{ii}(k)\)</span> be an identity matrix with <span class="math inline">\(i\)</span>-th diagional element replaced by <span class="math inline">\(k\)</span>. Note <span class="math inline">\(|\mathbf{R}_{ii}(k)| = k\)</span>.</p>
+</section>
+<section id="matrices-with-all-elements-equal" class="level2 box">
+<h2 class="anchored" data-anchor-id="matrices-with-all-elements-equal">Matrices with all elements equal</h2>
+<ul>
+<li><span class="math inline">\(\boldsymbol{1}_n\)</span> is a vector of length <span class="math inline">\(n\)</span> with all elements are unity.</li>
+<li><span class="math inline">\(\mathbf{J}_{r\times s}\)</span> is a <span class="math inline">\(r\times s\)</span> matrix with all elements unity.</li>
+<li>Pre (post) multiplication of a matrix <span class="math inline">\(\mathbf{A}\)</span> by <span class="math inline">\(\boldsymbol{1}_n^{\scriptscriptstyle \top}\)</span> results in a row (column) vector with <span class="math inline">\(i\)</span>-th element equal to the sum of the elements of <span class="math inline">\(i\)</span>-th column (row) of <span class="math inline">\(\mathbf{A}\)</span>.</li>
+<li><span class="math inline">\(\boldsymbol{1}_n^{\scriptscriptstyle \top}\boldsymbol{1}_n = n\)</span></li>
+<li><span class="math inline">\(\boldsymbol{1}_r\boldsymbol{1}_s^{\scriptscriptstyle \top}= \mathbf{J}_{r\times s}\)</span></li>
+<li><span class="math inline">\(\mathbf{J}_{r\times s}\mathbf{J}_{s\times t} = s\mathbf{J}_{r\times t}\)</span></li>
+<li><span class="math inline">\(\boldsymbol{1}^{\scriptscriptstyle \top}_r \mathbf{J}_{r\times s} = r\boldsymbol{1}_s^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\mathbf{J}_{r\times s}\boldsymbol{1}_s = s\boldsymbol{1}_r\)</span></li>
+<li><span class="math inline">\(\mathbf{J}_n=\boldsymbol{1}_n\boldsymbol{1}_n^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\mathbf{J}_n^2 = n\mathbf{J}_n\)</span></li>
+<li><span class="math inline">\(\bar{\mathbf{J}}_n = \frac{1}{n} \mathbf{J}_n\)</span></li>
+<li><span class="math inline">\(\bar{\mathbf{J}}_n^2 = \bar{\mathbf{J}}_n\)</span></li>
+</ul>
+<section id="centering-matrix" class="level3">
+<h3 class="anchored" data-anchor-id="centering-matrix">Centering matrix</h3>
+<ul>
+<li><span class="math inline">\(\mathbf{C}_n = \mathbf{I} - \bar{\mathbf{J}}_n\)</span></li>
+<li><span class="math inline">\(\mathbf{C} = \mathbf{C}^{\scriptscriptstyle \top}= \mathbf{C}^2\)</span></li>
+<li><span class="math inline">\(\mathbf{C}\boldsymbol{1} = \boldsymbol{0}\)</span></li>
+<li><span class="math inline">\(\mathbf{C}\mathbf{J} = \mathbf{J}\mathbf{C} = \boldsymbol{0}\)</span></li>
+<li><span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\mathbf{C}\boldsymbol{x}= \sum_{i=1}^n (x_i - \bar{x})^2\)</span></li>
+</ul>
+</section>
+</section>
+<section id="vector-space" class="level2 box">
+<h2 class="anchored" data-anchor-id="vector-space">Vector Space</h2>
+<p>A <strong>vector space</strong> over <span class="math inline">\(\mathbb{R}\)</span> is a non-empty set <span class="math inline">\(V\)</span> whose elements are called vectors on which two operations are defined, namely <em>addition of vectors</em> and <em>multiplication of a vector by a scalar</em> satisfying the 10 axioms below.</p>
+<section id="axioms-of-vector-space" class="level3">
+<h3 class="anchored" data-anchor-id="axioms-of-vector-space">Axioms of vector space:</h3>
+<p>For all <span class="math inline">\(\boldsymbol{u}, \boldsymbol{v}, \boldsymbol{w} \in V\)</span> and <span class="math inline">\(k\)</span>, <span class="math inline">\(k1\)</span>, <span class="math inline">\(k2\)</span> <span class="math inline">\(\in \mathbb{R}\)</span>,</p>
+<ul>
+<li>[A1] <span class="math inline">\(\boldsymbol{u} + \boldsymbol{v} \in V\)</span>. This property is called <em>closure under addition</em>.</li>
+<li>[A2] <span class="math inline">\((\boldsymbol{u} + \boldsymbol{v}) + \boldsymbol{w} = \boldsymbol{u} + (\boldsymbol{v} + \boldsymbol{w})\)</span>. This is called .</li>
+<li>[A3] <span class="math inline">\(\boldsymbol{u} + \boldsymbol{v} = \boldsymbol{v} + \boldsymbol{u}\)</span>. That is, addition is <em>commutative</em>.</li>
+<li>[A4] There is a <em>zero vector</em> <span class="math inline">\(\boldsymbol{0} \in V\)</span> with <span class="math inline">\(\boldsymbol{v} + \boldsymbol{0} = \boldsymbol{0} + \boldsymbol{v} = \boldsymbol{v}\)</span>.</li>
+<li>[A5] There is a vector which we write as <span class="math inline">\(-\boldsymbol{v}\)</span> and call a negative of , such that <span class="math inline">\(\boldsymbol{v} + -\boldsymbol{v} = \boldsymbol{0}\)</span>.</li>
+<li>[S1] <span class="math inline">\(k\boldsymbol{v} \in V\)</span>. This property is called <em>closure under multiplication by a scalar</em>.</li>
+<li>[S2] <span class="math inline">\(k(\boldsymbol{u} + \boldsymbol{v}) = k\boldsymbol{u} + k\boldsymbol{v}\)</span>.</li>
+<li>[S3] <span class="math inline">\((k_1 + k_2) \boldsymbol{v} = k_1\boldsymbol{v} + k_2 \boldsymbol{v}\)</span>.</li>
+<li>[S4] <span class="math inline">\((k_1 k_2)\boldsymbol{v} = k_1(k_2\boldsymbol{v})\)</span>.</li>
+<li>[S5] <span class="math inline">\(1\boldsymbol{v} = \boldsymbol{v}\)</span>.</li>
+</ul>
+</section>
+<section id="special-set-of-vectors" class="level3">
+<h3 class="anchored" data-anchor-id="special-set-of-vectors">Special set of vectors</h3>
+<p>The set of vectors <span class="math inline">\(X=\{\boldsymbol{v}_1, \boldsymbol{v}_2, ..., \boldsymbol{v}_n \}\)</span> in a vector space <span class="math inline">\(V\)</span> is called a <strong>linearly independent</strong> set if the only scalars that satisfy <span class="math inline">\(\sum_{i=1}^n a_i\boldsymbol{v}_i = \boldsymbol{0}\)</span> are <span class="math inline">\(a_1 = a_2 = ... = a_n = 0\)</span>, otherwise it is called a <strong>linearly dependent</strong> set. <span class="math inline">\(\mathcal{R}(X)\)</span> is a subspace of <span class="math inline">\(V\)</span> and is the smallest subspace of <span class="math inline">\(V\)</span> containing the set <span class="math inline">\(X\)</span>.</p>
+</section>
+<section id="basis" class="level3">
+<h3 class="anchored" data-anchor-id="basis">Basis</h3>
+<p>A set of vectors <span class="math inline">\(X\)</span> in a vector space <span class="math inline">\(V\)</span> is called a <strong>basis</strong> of <span class="math inline">\(V\)</span> if <span class="math inline">\(\{\boldsymbol{v}_1, \boldsymbol{v}_2, ..., \boldsymbol{v}_n \}\)</span> is a linearly independent set and <span class="math inline">\(\mathcal{R}(X) = V\)</span>.</p>
+<ul>
+<li>If an <span class="math inline">\(n\times n\)</span> matrix <span class="math inline">\(\boldsymbol{M}\)</span> has <span class="math inline">\(n\)</span> distinct eigenvalues then the set of <span class="math inline">\(n\)</span> eigenvectors formed by selecting a non-zero vector from each eigenspace is a basis of <span class="math inline">\(\mathbb{R}^n\)</span>.</li>
+<li>If <span class="math inline">\(\{\boldsymbol{v}_1, \boldsymbol{v}_2, ..., \boldsymbol{v}_n \}\)</span> is a basis of a vector space <span class="math inline">\(V\)</span> then each vector <span class="math inline">\(\boldsymbol{v}\)</span> in <span class="math inline">\(V\)</span> can be expressed as a linear combination of the basis in .</li>
+<li>If one basis of a vector space <span class="math inline">\(V\)</span> contains <span class="math inline">\(n\)</span> vectors then every basis of <span class="math inline">\(V\)</span> contains <span class="math inline">\(n\)</span> vectors.</li>
+<li>If <span class="math inline">\(W\)</span> is a non-zero subspace of <span class="math inline">\(V\)</span> and <span class="math inline">\(V\)</span> has dimension <span class="math inline">\(n\)</span> then <span class="math inline">\({\rm dim}\left(W\right)\)</span> <span class="math inline">\(\leq n\)</span> with <span class="math inline">\({\rm dim}\left(W\right)\)</span> <span class="math inline">\(=n\)</span> if and only if <span class="math inline">\(W=V\)</span>.</li>
+<li>In a vector space <span class="math inline">\(V\)</span> of dimension <span class="math inline">\(n\)</span>, every linearly independent set containing fewer than <span class="math inline">\(n\)</span> vectors can be extended to a basis of <span class="math inline">\(V\)</span>, and every spanning set of <span class="math inline">\(V\)</span> with more than <span class="math inline">\(n\)</span> vectors contains a basis of <span class="math inline">\(V\)</span> where a spanning set is the span of the set of vectors in <span class="math inline">\(V\)</span>. Moreover, every linearly independent set of <span class="math inline">\(n\)</span> vectors is a basis of <span class="math inline">\(V\)</span> and every set of <span class="math inline">\(n\)</span> vectors which spans <span class="math inline">\(V\)</span> is a basis of <span class="math inline">\(V\)</span>. \end{itemize}</li>
+</ul>
+</section>
+<section id="vector-subspaces" class="level3">
+<h3 class="anchored" data-anchor-id="vector-subspaces">Vector subspaces</h3>
+<p>Let <span class="math inline">\(S\)</span> be a non-empty subset of a vector space <span class="math inline">\(V\)</span>. If <span class="math inline">\(S\)</span> itself satisfies the 10 vector space axioms with the same operations of addition and multiplication by a scalar then <span class="math inline">\(S\)</span> is called a <em>subspace</em> of <span class="math inline">\(V\)</span>.</p>
+<p>A subset <span class="math inline">\(S\)</span> of a vector space <span class="math inline">\(V\)</span> is a subspace of <span class="math inline">\(V\)</span> if <span class="math inline">\(S\)</span> is not empty and <span class="math inline">\(S\)</span> satisfies A1 and S1. If the zero vector of <span class="math inline">\(V\)</span> is <em>not</em> in <span class="math inline">\(S\)</span> then <span class="math inline">\(S\)</span> is not a subspace.</p>
+<p>The addition of vector spaces is defined below: <span class="math display">\[V + U = \{\boldsymbol{v} + \boldsymbol{u}: \boldsymbol{v}\in V,\boldsymbol{w}\in U\}.\]</span> A decomposition of a vector space <span class="math inline">\(W\)</span> to <span class="math inline">\(V\)</span> and <span class="math inline">\(U\)</span> is written as <span class="math display">\[  W = V \oplus U\]</span> where <span class="math inline">\(V \cap U = \{\boldsymbol{0}\}\)</span>. We also say <span class="math inline">\(W\)</span> is the direct sum of <span class="math inline">\(V\)</span> and <span class="math inline">\(U\)</span>.</p>
+</section>
+</section>
+<section id="diagonal-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="diagonal-matrix">Diagonal Matrix</h2>
+<ul>
+<li><span class="math inline">\(\mathbf{D}\mathbf{A}\)</span> (or <span class="math inline">\(\mathbf{A}\mathbf{D}\)</span>) gives a matrix whose <em>rows</em> (or <em>columns</em>) are those of <span class="math inline">\(\mathbf{A}\)</span> multiplied by the respective diagonal elements of <span class="math inline">\(\mathbf{D}\)</span></li>
+</ul>
+</section>
+<section id="triangular-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="triangular-matrix">Triangular Matrix</h2>
+<ul>
+<li>A square matrix with all elements above (or below) the diagonal are zero is called a <em>lower (upper) triangular matrix</em>.</li>
+</ul>
+</section>
+<section id="transition-probability-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="transition-probability-matrix">Transition Probability Matrix</h2>
+<ul>
+<li>The <span class="math inline">\((i,j)\)</span>-th element of a transition probability matirx, <span class="math inline">\(p_ij\)</span>, is the probability of the probability of transitioning from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> in a pre-defined time period.</li>
+<li>The sum of the elements of each row is 1.</li>
+<li>For a transition probability matrix <span class="math inline">\(\mathbf{P}\)</span>, <span class="math inline">\(\mathbf{P}^k\)</span> is also a transition proability matrix with the elements correspond to the transition from state <span class="math inline">\(i\)</span> to state <span class="math inline">\(j\)</span> in <span class="math inline">\(k\)</span> time periods.</li>
+</ul>
+<p><strong>Examples</strong></p>
+<ul>
+<li>Feller (1968, p.&nbsp;439) for a transition proability matrix <span class="math display">\[\mathbf{P} = \begin{bmatrix}
+\mathbf{A}&amp; \mathbf{0} &amp; \mathbf{0} \\
+\mathbf{0} &amp; \mathbf{B}&amp; \mathbf{0} \\
+\mathbf{U}_1 &amp; \mathbf{V}_1 &amp; \mathbf{T}
+\end{bmatrix}\]</span> where <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span> are also transition probality matrices. Then for <span class="math inline">\(\mathbf{U}_n = \mathbf{U}_1\mathbf{A}^{n - 1} + \mathbf{T}\mathbf{U}_{n-1}\)</span> and <span class="math inline">\(\mathbf{V}_n = \mathbf{V}_1\mathbf{B}^{n - 1} + \mathbf{T}\mathbf{V}_{n-1}\)</span>, we have <span class="math display">\[\mathbf{P}^n = \begin{bmatrix}\mathbf{A}^n &amp; \mathbf{0} &amp; \mathbf{0}\\
+\mathbf{0} &amp; \mathbf{B}^n &amp; \mathbf{0} \\
+\mathbf{U}_n &amp; \mathbf{V}_n &amp; \mathbf{T}^n \end{bmatrix}\]</span></li>
+</ul>
+</section>
+<section id="orthogonal-matrix" class="level2 box">
+<h2 class="anchored" data-anchor-id="orthogonal-matrix">Orthogonal Matrix</h2>
+<ul>
+<li>If any two of the following conditions are satisfied then the matrix <span class="math inline">\(\mathbf{A}\)</span> is an <strong>orthogonal matrix</strong>:
+<ol type="1">
+<li><span class="math inline">\(\mathbf{A}\)</span> is square</li>
+<li><span class="math inline">\(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}= \mathbf{I}\)</span></li>
+<li><span class="math inline">\(\mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}= \mathbf{I}\)</span></li>
+<li><span class="math inline">\(|\mathbf{A}| = \pm 1\)</span></li>
+</ol></li>
+<li><span class="math inline">\(\mathbf{A}^{-1} = \mathbf{A}^{\scriptscriptstyle \top}\)</span></li>
+</ul>
+<section id="special-cases" class="level3">
+<h3 class="anchored" data-anchor-id="special-cases">Special Cases</h3>
+<ul>
+<li>Helmert matrix <span class="math inline">\(\mathbf{H}_n\)</span> of order <span class="math inline">\(n\)</span> has <span class="math inline">\(n^{-\frac{1}{2}}\boldsymbol{1}_n^{\scriptscriptstyle \top}\)</span> for its first row and the other <span class="math inline">\(i\)</span>-th row is given by <span class="math display">\[\left(i(i-1)\right)^{-\frac{1}{2}}\begin{bmatrix}\boldsymbol{1}_{i - 1}^{\scriptscriptstyle \top}&amp; -(i-1) &amp; \boldsymbol{0}_{1\times (n-i)}\end{bmatrix}.\]</span>
+<details>
+<summary>
+Example
+</summary>
+<span class="math display">\[\mathbf{H}_4 = \begin{bmatrix}
+1/\sqrt{4} &amp; 1/\sqrt{4} &amp; 1/\sqrt{4} &amp; 1/\sqrt{4}\\
+1/\sqrt{2} &amp; -1/\sqrt{2} &amp; 0          &amp; 0\\
+1/\sqrt{6} &amp; 1/\sqrt{6} &amp; -2/\sqrt{6} &amp; 0 \\
+1/\sqrt{12} &amp; 1/\sqrt{12} &amp; 1/\sqrt{12} &amp; -3/\sqrt{12}
+\end{bmatrix}\]</span>
+</details></li>
+<li>Givens matrices <span class="math inline">\(\mathbf{G}_{rs}\)</span> or order <span class="math inline">\(n\)</span> is an identity matrix except for four elements: <span class="math inline">\(g_{rr}=g_{ss}=\cos\theta_{rs}\)</span> and for <span class="math inline">\(r &gt; s\)</span>, <span class="math inline">\(-g_{rs}=g_{sr} = \sin\theta_{rs}\)</span>.
+<details>
+<summary>
+Examples
+</summary>
+Givens matrix of order 2 <span class="math display">\[\begin{bmatrix}
+\cos\theta &amp; \sin\theta \\
+-\sin\theta &amp; \cos\theta
+\end{bmatrix}\]</span> Givens matrix of order 3 <span class="math display">\[
+\mathbf{G}_{12} = \begin{bmatrix}
+\cos \alpha &amp; \sin \alpha &amp; 0 \\
+-\sin \alpha &amp; \cos\alpha &amp; 0 \\
+0 &amp; 0 &amp; 1\end{bmatrix}\quad
+\mathbf{G}_{13} = \begin{bmatrix}
+\cos\beta &amp; 0 &amp; \sin\beta\\
+0 &amp; 1 &amp; 0 \\
+-\sin\beta &amp; 0 &amp; \cos\beta
+\end{bmatrix}\quad
+\mathbf{G}_{23}= \begin{bmatrix}
+1 &amp; 0 &amp; 0 \\
+0 &amp; \cos \gamma &amp; \sin\gamma\\
+0 &amp; -\sin\gamma &amp; \cos\gamma
+\end{bmatrix}
+\]</span>
+</details></li>
+<li>Premultiplying by a Givens matrix will make the result an upper triangle. Postmultiplying by a Givens matrix will make the result a lower triangle. These tranformations are sometimes referred to as a <em>Givens transformation</em>.</li>
+<li>*Household matrices** are orthogonal matrices such that <span class="math display">\[\mathbf{H} = \mathbf{I} - 2\boldsymbol{h}\boldsymbol{h}^{\scriptscriptstyle \top}\quad\text{for }\boldsymbol{h}^{\scriptscriptstyle \top}\boldsymbol{h}=1.\]</span> For any non-null vector <span class="math inline">\(\boldsymbol{x}\)</span> there exists <span class="math inline">\(\boldsymbol{h}\)</span> such that <span class="math inline">\(\mathbf{H}\boldsymbol{x} = (\lambda, 0, ..., 0)^{\scriptscriptstyle \top}\)</span> for <span class="math inline">\(\lambda = -(\text{sign of }x_1)\sqrt{\boldsymbol{x}^{\scriptscriptstyle \top}\boldsymbol{x}}\)</span>, <span class="math inline">\(h_1=\sqrt{\frac{1}{2}(1 - x_1/\lambda)}\)</span> and <span class="math inline">\(h_i=-x_i/(2h_1\lambda)\)</span> for <span class="math inline">\(i=2, ..., n\)</span>.</li>
+</ul>
+</section>
+</section>
+<section id="null-or-zero-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="null-or-zero-matrices">Null or Zero Matrices</h2>
+<p>A matrix is a null or zero matrix if every element is zero.</p>
+</section>
+<section id="identity-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="identity-matrices">Identity Matrices</h2>
+<ul>
+<li>A diagonal matrix with all diagonal elements equal to unity is called an <em>identity matrix</em>.</li>
+<li>An identity matrix is denoted with letter <span class="math inline">\(\mathbf{I}\)</span> with a subscript for its order.</li>
+<li><span class="math inline">\(\mathbf{I}_r\mathbf{A}_{r\times c} = \mathbf{A}_{r\times c} \mathbf{I}_c = \mathbf{A}_{r\times c}\)</span>.</li>
+</ul>
+</section>
+<section id="symmetric-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="symmetric-matrices">Symmetric Matrices</h2>
+<ul>
+<li><span class="math inline">\(\mathbf{A}\)</span> is symmetric if <span class="math inline">\(\mathbf{A}= \mathbf{A}^{\scriptscriptstyle \top}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{A}\mathbf{A}^{\scriptscriptstyle \top}\)</span> and <span class="math inline">\(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}\)</span> are symmetric.</li>
+<li><span class="math inline">\(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}= \boldsymbol{0}\)</span> implies <span class="math inline">\(\mathbf{A}= \boldsymbol{0}\)</span>.</li>
+<li><span class="math inline">\(\text{tr}\left(\mathbf{A}^{\scriptscriptstyle \top}\mathbf{A}\right) = \boldsymbol{0}\)</span> implies <span class="math inline">\(\mathbf{A}= \boldsymbol{0}\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{A}\)</span> and <span class="math inline">\(\mathbf{B}\)</span> are symmetric matrices, then in general <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span> is not a symmetric matrix.
+<details>
+<summary>
+Proof
+</summary>
+<span class="math display">\[(\mathbf{A}\mathbf{B})^{\scriptscriptstyle \top}= \mathbf{B}^{\scriptscriptstyle \top}\mathbf{A}^{\scriptscriptstyle \top}= \mathbf{B}\mathbf{A}.\]</span> Since <span class="math inline">\(\mathbf{B}\mathbf{A}\)</span> is generally not the same as <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span>, this means <span class="math inline">\(\mathbf{A}\mathbf{B}\)</span> is generally not symmetric.
+</details></li>
+</ul>
+</section>
+<section id="skew-symmetric-matrices" class="level2 box">
+<h2 class="anchored" data-anchor-id="skew-symmetric-matrices">Skew-symmetric matrices</h2>
+<ul>
+<li>If a matrix <span class="math inline">\(\mathbf{A}\)</span> is skew-symmetric, then <span class="math inline">\(\mathbf{A}^{\scriptscriptstyle \top}= - \mathbf{A}\)</span>.</li>
+<li>The diagonal elements of a skew-symmetric matrices is zero.</li>
+</ul>
+</section>
+<section id="matrix-factorisation" class="level2 box">
+<h2 class="anchored" data-anchor-id="matrix-factorisation">Matrix Factorisation</h2>
+<ul>
+<li>Suppose a non-full rank matrix <span class="math inline">\(\mathbf{A}= \begin{bmatrix}  \mathbf{X}&amp; \mathbf{Y}\\  \mathbf{Z} &amp; \boldsymbol{W}  \end{bmatrix}\)</span> where <span class="math inline">\(\mathbf{X}\)</span> is full rank. Then <span class="math display">\[\mathbf{A}= \begin{bmatrix}
+  \mathbf{I} \\
+  \mathbf{Z}\mathbf{X}^{-1}
+  \end{bmatrix} \mathbf{X}\begin{bmatrix}
+  \mathbf{I} &amp; \mathbf{X}^{-1}\mathbf{Y}
+  \end{bmatrix}\]</span></li>
+<li>If matrix <span class="math inline">\(\mathbf{A}\)</span> is not in above form then there exists permutation matrices <span class="math inline">\(\mathbf{P}\)</span> and <span class="math inline">\(\mathbf{Q}\)</span> such that <span class="math inline">\(\mathbf{P}\mathbf{A}\mathbf{Q}\)</span> is in the above form.</li>
+</ul>
+</section>
+<section id="solving-linear-equations" class="level2 box">
+<h2 class="anchored" data-anchor-id="solving-linear-equations">Solving Linear Equations</h2>
+<ul>
+<li>The consistent equations <span class="math inline">\(\mathbf{A}\boldsymbol{x}= \boldsymbol{y}\)</span> for <span class="math inline">\(\boldsymbol{y}\neq \boldsymbol{0}\)</span> have a solution <span class="math inline">\(\boldsymbol{x}= \mathbf{G}\boldsymbol{y}\)</span> if and only if <span class="math inline">\(\mathbf{A}\mathbf{G}\mathbf{A}=\mathbf{A}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{A}\boldsymbol{x}= \boldsymbol{y}\)</span> have solutions <span class="math display">\[\tilde{\boldsymbol{x}} = \mathbf{G}\boldsymbol{y}+ (\mathbf{G}\mathbf{A}- \mathbf{I})\boldsymbol{z} \]</span> for <span class="math inline">\(\mathbf{G}=\mathbf{A}^-\)</span> and any arbitrary vector <span class="math inline">\(\boldsymbol{z}\)</span>.</li>
+</ul>
+</section>
+<section id="direct-sum" class="level2 box">
+<h2 class="anchored" data-anchor-id="direct-sum">Direct Sum</h2>
+<ul>
+<li><span class="math inline">\(\mathbf{A}\oplus \mathbf{B}= \begin{bmatrix}  \mathbf{A}&amp; \boldsymbol{0} \\  \boldsymbol{0} &amp; \mathbf{B}\end{bmatrix}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\oplus \mathbf{B}) + (\mathbf{C} \oplus \mathbf{D}) = (\mathbf{A}+ \mathbf{C}) \oplus (\mathbf{B}+ \mathbf{D})\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\oplus \mathbf{B})(\mathbf{C} \oplus \mathbf{D}) = \mathbf{A}\mathbf{C} \oplus \mathbf{B}\mathbf{D}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\oplus \mathbf{B})^{-1} = \mathbf{A}^{-1}\oplus \mathbf{B}^{-1}\)</span></li>
+</ul>
+</section>
+<section id="direct-product" class="level2 box">
+<h2 class="anchored" data-anchor-id="direct-product">Direct Product</h2>
+<ul>
+<li><span class="math inline">\((\mathbf{A}\otimes \mathbf{B})^{\scriptscriptstyle \top}= \mathbf{A}^{\scriptscriptstyle \top}\otimes \mathbf{B}^{\scriptscriptstyle \top}\)</span></li>
+<li>For vectors <span class="math inline">\(\boldsymbol{x}\)</span> and <span class="math inline">\(\boldsymbol{y}\)</span>: <span class="math inline">\(\boldsymbol{x}^{\scriptscriptstyle \top}\otimes \boldsymbol{y}= \boldsymbol{y}\boldsymbol{x}^{\scriptscriptstyle \top}= \boldsymbol{y}\otimes \boldsymbol{x}^{\scriptscriptstyle \top}\)</span></li>
+<li><span class="math inline">\(\begin{bmatrix}  \mathbf{A}_1 &amp; \mathbf{A}_2  \end{bmatrix} \otimes \mathbf{B}= \begin{bmatrix}  \mathbf{A}_1 \otimes \mathbf{B}&amp; \mathbf{A}_2 \otimes \mathbf{B}\end{bmatrix}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\otimes \mathbf{B})(\mathbf{X}\otimes \mathbf{Y}) = \mathbf{A}\mathbf{X}\otimes \mathbf{B}\mathbf{Y}\)</span></li>
+<li><span class="math inline">\((\mathbf{A}\otimes \mathbf{B})^{-1} = \mathbf{A}^{-1}\otimes \mathbf{B}^{-1}\)</span></li>
+<li><span class="math inline">\({\rm tr}\left(\mathbf{A}\otimes \mathbf{B}\right) = {\rm tr}\left(\mathbf{A}\right){\rm tr}\left(\mathbf{B}\right)\)</span></li>
+<li><span class="math inline">\(|\mathbf{A}_{p\times p}\otimes \mathbf{B}_{m\times m }| = |\mathbf{A}|^m|\mathbf{B}|^p\)</span></li>
+<li>Eigenvalues of <span class="math inline">\(\mathbf{A}\otimes \mathbf{B}\)</span> are products of eigenvalues of <span class="math inline">\(\mathbf{A}\)</span> with those of <span class="math inline">\(\mathbf{B}\)</span>.</li>
+</ul>
+</section>
+<section id="the-matrix-mathbfxscriptscriptstyle-topmathbfx" class="level2 box">
+<h2 class="anchored" data-anchor-id="the-matrix-mathbfxscriptscriptstyle-topmathbfx">The matrix <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\)</span></h2>
+<ul>
+<li><span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\)</span> and <span class="math inline">\(\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}\)</span> are symmetric matrices.</li>
+<li>If <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}= \mathbf{0}\)</span> then <span class="math inline">\(\mathbf{A}= \mathbf{0}\)</span>.</li>
+<li><span class="math inline">\(\left((\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\right)^{\scriptscriptstyle \top}\)</span> is a generalised inverse of <span class="math inline">\(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\)</span>.</li>
+<li>If <span class="math inline">\(\mathbf{P}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}= \mathbf{Q}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}\)</span> then <span class="math inline">\(\mathbf{P}\mathbf{X}= \mathbf{Q}\mathbf{X}\)</span>.
+<details>
+<summary>
+Proof
+</summary>
+Observe that <span class="math display">\[(\mathbf{P}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}- \mathbf{Q}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top})(\mathbf{P}^{\scriptscriptstyle \top}- \mathbf{Q}^{\scriptscriptstyle \top}) \equiv (\mathbf{P}\mathbf{X}- \mathbf{Q}\mathbf{X})(\mathbf{P}\mathbf{X}- \mathbf{Q}\mathbf{X})^{\scriptscriptstyle \top}.\]</span> Hence if <span class="math inline">\(\mathbf{P}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}= \mathbf{Q}\mathbf{X}\mathbf{X}^{\scriptscriptstyle \top}\)</span>, then <span class="math inline">\(\mathbf{P}\mathbf{X}= \mathbf{Q}\mathbf{X}\)</span>.
+</details></li>
+<li><span class="math inline">\(\mathbf{X}(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}= \mathbf{X}\)</span>, i.e.&nbsp;<span class="math inline">\((\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\mathbf{X}^{\scriptscriptstyle \top}\)</span> is a generalised inverse of <span class="math inline">\(\mathbf{X}\)</span>.</li>
+<li><span class="math inline">\(\mathbf{X}(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\mathbf{X}^{\scriptscriptstyle \top}\)</span> is invariant to the choice of <span class="math inline">\((\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\)</span>.</li>
+<li><span class="math inline">\(\mathbf{X}(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\mathbf{X}^{\scriptscriptstyle \top}\)</span> is symmetric whether <span class="math inline">\((\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X})^-\)</span> is or not.</li>
+</ul>
+</section>
+<section id="least-squares-equations" class="level2 box">
+<h2 class="anchored" data-anchor-id="least-squares-equations">Least Squares Equations</h2>
+<p>The following are invariant to the choice of <span class="math inline">\(\left(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\right)^-\)</span>:</p>
+<ul>
+<li>the vector of predicted values <span class="math inline">\(\hat{\boldsymbol{y}} = \mathbf{X}\left(\mathbf{X}^{\scriptscriptstyle \top}\mathbf{X}\right)^-\mathbf{X}^{\scriptscriptstyle \top}\boldsymbol{y}\)</span>;</li>
+<li>The residual sum of squares <span class="math inline">\((\boldsymbol{y}- \hat{\boldsymbol{y}})^{\scriptscriptstyle \top}(\boldsymbol{y}- \hat{\boldsymbol{y}})\)</span>.</li>
+</ul>
+</section>
+
+
+
+</main> <!-- /main -->
+<script type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>
